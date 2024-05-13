@@ -1,6 +1,4 @@
-import { Logo } from './components/Logo'
-import { LoginForm } from './components/LoginForm'
-import { RegisterForm } from './components/RegisterForm'
+import { Logo, LoginForm, RegisterForm } from './components'
 import {
   Box,
   Container,

@@ -11,7 +11,7 @@ export const ErrorPage = () => {
         color: '#1C84CA',
       }}
     >
-      404 Not Found
+      404 Not Found :(
     </div>
   )
 }
