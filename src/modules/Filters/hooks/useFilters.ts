@@ -1,33 +1,17 @@
-import { ChangeEvent, useCallback } from 'react'
-import {
-  setSearchQueryAC,
-  setRoleFilterAC,
-  setLimitFilterAC,
-  selectSearchQuery,
-  selectRoleFilter,
-  selectLimitFilter,
-} from '../store/filterSlice'
-import { useAppDispatch, useAppSelector, useGetUsersQuery } from '@/store'
+import { useCallback } from 'react'
+import { useAppSelector, useGetUsersQuery } from '@/store'
 import { UserType } from '@/types'
+import {
+  selectLimitFilter,
+  selectRoleFilter,
+  selectSearchQuery,
+} from '../store/filterSlice'
 
 export const useFilters = () => {
-  const dispatch = useAppDispatch()
-  const searchQuery = useAppSelector(selectSearchQuery)
-  const roleFilter = useAppSelector(selectRoleFilter)
   const limitFilter = useAppSelector(selectLimitFilter)
+  const roleFilter = useAppSelector(selectRoleFilter)
+  const searchQuery = useAppSelector(selectSearchQuery)
   const { data = [], isLoading } = useGetUsersQuery()
-
-  const handleChangeSearchQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchQueryAC(e.currentTarget.value))
-  }
-
-  const handleChangePageFilter = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLimitFilterAC(+e.currentTarget.value))
-  }
-
-  const handleChangeRoleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setRoleFilterAC(e.currentTarget.value))
-  }
 
   const filterByName = useCallback((data: UserType[], name: string) => {
     return data.filter((user) =>
@@ -62,17 +46,9 @@ export const useFilters = () => {
   )
 
   return {
-    searchQuery,
-    roleFilter,
-    limitFilter,
-
     isLoading,
     users,
     totalPages,
     items,
-
-    handleChangeSearchQuery,
-    handleChangePageFilter,
-    handleChangeRoleFilter,
   }
 }

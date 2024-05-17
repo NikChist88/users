@@ -225,14 +225,6 @@
       "country": "🇹🇭 Thailand"
     },
     {
-      "id": "39",
-      "name": "Bunny Houlson",
-      "email": "bhoulson12@ask.com",
-      "role": "Electrician",
-      "company": "Crooks-Flatley",
-      "country": "🇮🇩 Indonesia"
-    },
-    {
       "id": "40",
       "name": "Lizzie Blundin",
       "email": "lblundin13@dedecms.com",
@@ -359,6 +351,14 @@
       "role": "Construction Worker",
       "company": "Jhon and Sons",
       "country": "🇺🇸 USA"
+    },
+    {
+      "id": "547c",
+      "name": "Nick Hawk",
+      "email": "hawks@hawks.com",
+      "role": "Supervisor",
+      "company": "Hawks and Sons",
+      "country": "🇵🇹 Protugal"
     }
   ]
 }

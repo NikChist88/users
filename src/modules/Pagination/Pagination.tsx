@@ -1,6 +1,7 @@
 import { FC, memo } from 'react'
 import { Box, Button, Text } from '@chakra-ui/react'
 import { usePagination } from './hooks/usePagination'
+import './Pagination.css'
 
 type PaginationProps = {
   items: number
@@ -11,14 +12,7 @@ export const Pagination: FC<PaginationProps> = memo(({ items, totalPages }) => {
   const { currentPage, handleNextPage, handlePrevPage } = usePagination()
 
   return (
-    <Box
-      display={'flex'}
-      alignItems={'center'}
-      justifyContent={'space-between'}
-      gap={'0 10px'}
-      fontSize={'14px'}
-      paddingTop={'15px'}
-    >
+    <Box className="pagination">
       <Text
         backgroundColor={'#1C84CA'}
         color={'#fff'}

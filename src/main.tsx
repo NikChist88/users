@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <RouterProvider router={router} />
       <ToastContainer
         position="top-center"
-        autoClose={2000}
+        autoClose={1500}
         theme="light"
       />
     </ChakraProvider>

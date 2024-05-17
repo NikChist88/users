@@ -1,0 +1,12 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 10px;
+  font-size: 14px;
+  background-color: #fff;
+  padding: 15px;
+  margin-top: 15px;
+  width: 100%;
+  border-radius: 5px;
+}
