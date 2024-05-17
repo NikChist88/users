@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import { Box, Text, Select } from '@chakra-ui/react'
+import { Box, Select } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { selectLimitFilter, setLimitFilterAC } from '../store/filterSlice'
 
@@ -13,14 +13,9 @@ export const PageFilter = () => {
 
   return (
     <Box
-      display={'flex'}
-      alignItems={'center'}
-      gap={'0 5px'}
+      width={'100px'}
       height={'35px'}
-      maxWidth={'180px'}
-      width={'100%'}
     >
-      <Text>Show</Text>
       <Select
         maxWidth={'100px'}
         height={'35px'}
@@ -31,7 +26,6 @@ export const PageFilter = () => {
         <option value={10}>10</option>
         <option value={15}>15</option>
       </Select>
-      <Text>entries</Text>
     </Box>
   )
 }

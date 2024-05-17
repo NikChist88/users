@@ -2,7 +2,6 @@ import { ChangeEvent, FC } from 'react'
 import { Select } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { selectRoleFilter, setRoleFilterAC } from '../store/filterSlice'
-import '../Filters.css'
 
 const roles: string[] = [
   'Subcontractor',

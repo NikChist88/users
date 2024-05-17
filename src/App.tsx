@@ -5,7 +5,7 @@ import { Filters, useFilters } from './modules/Filters'
 import { Pagination, usePagination } from './modules/Pagination'
 
 export const App = memo(() => {
-  const { users, isLoading, items, totalPages } = useFilters()
+  const { users, isLoading, totalItems, totalPages } = useFilters()
   const { currentPage } = usePagination()
 
   return (
@@ -17,7 +17,7 @@ export const App = memo(() => {
         currentPage={currentPage}
       />
       <Pagination
-        items={items}
+        totalItems={totalItems}
         totalPages={totalPages}
       />
     </>

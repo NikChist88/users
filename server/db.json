@@ -359,6 +359,14 @@
       "role": "Supervisor",
       "company": "Hawks and Sons",
       "country": "🇵🇹 Protugal"
+    },
+    {
+      "id": "fe5a",
+      "name": "Joe Scarpo",
+      "email": "mafioznik@2k.czech",
+      "role": "Supervisor",
+      "company": "2k Czech Inc.",
+      "country": "🇺🇸 USA"
     }
   ]
 }

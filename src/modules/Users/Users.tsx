@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { User, UserModal } from './components'
 import { UserType } from '@/types'
+import './Users.css'
 
 const titles: string[] = [
   'uuid',
@@ -27,12 +28,7 @@ type UsersPropsType = {
 
 export const Users: FC<UsersPropsType> = memo(({ users, currentPage }) => {
   return (
-    <TableContainer
-      width={'100%'}
-      backgroundColor={'#ffffff'}
-      borderRadius={'5px'}
-      padding={'15px'}
-    >
+    <TableContainer className="tableContainer">
       <Box
         display={'flex'}
         justifyContent={'end'}

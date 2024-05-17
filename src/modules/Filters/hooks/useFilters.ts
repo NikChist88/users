@@ -25,9 +25,9 @@ export const useFilters = () => {
 
   let filteredUsers
 
-  if (searchQuery !== '') {
+  if (searchQuery) {
     filteredUsers = filterByName(data, searchQuery)
-  } else if (roleFilter !== '') {
+  } else if (roleFilter) {
     filteredUsers = filterByRole(data, roleFilter)
   } else {
     filteredUsers = data
@@ -40,7 +40,7 @@ export const useFilters = () => {
     filteredUsers.slice(pageIndex, pageIndex + limitFilter)
   )
 
-  const items = Object.values(users).reduce(
+  const totalItems = Object.values(users).reduce(
     (acc, value) => acc + value.length,
     0
   )
@@ -49,6 +49,6 @@ export const useFilters = () => {
     isLoading,
     users,
     totalPages,
-    items,
+    totalItems,
   }
 }
