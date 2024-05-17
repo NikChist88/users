@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useCallback } from 'react'
 import {
   setSearchQueryAC,
   setRoleFilterAC,
@@ -29,15 +29,15 @@ export const useFilters = () => {
     dispatch(setRoleFilterAC(e.currentTarget.value))
   }
 
-  const filterByName = (data: UserType[], name: string) => {
+  const filterByName = useCallback((data: UserType[], name: string) => {
     return data.filter((user) =>
       user.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
     )
-  }
+  }, [])
 
-  const filterByRole = (data: UserType[], role: string) => {
+  const filterByRole = useCallback((data: UserType[], role: string) => {
     return data.filter((user) => user.role === role)
-  }
+  }, [])
 
   let filteredUsers
 

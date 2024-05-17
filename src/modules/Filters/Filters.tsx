@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { Box } from '@chakra-ui/react'
 import { PageFilter, RoleFilter, SearchBar } from './components'
 import './Filters.css'
 
-export const Filters: FC = () => {
+export const Filters: FC = memo(() => {
   return (
     <Box className="filters">
       <PageFilter />
@@ -11,4 +11,4 @@ export const Filters: FC = () => {
       <SearchBar />
     </Box>
   )
-}
+})

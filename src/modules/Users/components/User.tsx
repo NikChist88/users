@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { Tr, Td, Box, Text, IconButton } from '@chakra-ui/react'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { UserModal } from './UserModal'
@@ -10,7 +10,7 @@ type UserPropsType = {
   user: UserType
 }
 
-export const User: FC<UserPropsType> = ({ user }) => {
+export const User: FC<UserPropsType> = memo(({ user }) => {
   const { id, name, email, role, company, country } = user
   const { handleDeleteUser } = useUsers(id, name)
   const initials = getInitials(name)
@@ -75,4 +75,4 @@ export const User: FC<UserPropsType> = ({ user }) => {
       </Td>
     </Tr>
   )
-}
+})

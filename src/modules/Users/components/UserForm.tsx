@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import {
   Box,
   Button,
@@ -30,7 +30,7 @@ type UserFormProps = {
   onClose: () => void
 }
 
-export const UserForm: FC<UserFormProps> = ({ user, onClose }) => {
+export const UserForm: FC<UserFormProps> = memo(({ user, onClose }) => {
   const { register, handleSubmit, onSubmit } = useUserForm(user, onClose)
 
   return (
@@ -101,4 +101,4 @@ export const UserForm: FC<UserFormProps> = ({ user, onClose }) => {
       </Box>
     </>
   )
-}
+})

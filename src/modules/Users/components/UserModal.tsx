@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { FaRegEdit } from 'react-icons/fa'
 import { UserForm } from './UserForm'
 import { IoMdAdd } from 'react-icons/io'
@@ -20,7 +20,7 @@ type UserModalProps = {
   isEditMode?: boolean
 }
 
-export const UserModal: FC<UserModalProps> = ({ user, isEditMode }) => {
+export const UserModal: FC<UserModalProps> = memo(({ user, isEditMode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -71,4 +71,4 @@ export const UserModal: FC<UserModalProps> = ({ user, isEditMode }) => {
       </Modal>
     </>
   )
-}
+})

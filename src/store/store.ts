@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { usersApi } from './usersApi'
+import { usersApi } from '../api/usersApi'
 import { filtersReducer } from '../modules/Filters'
 import { paginateReducer } from '../modules/Pagination'
 

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import {
   TableContainer,
   Table,
@@ -25,7 +25,7 @@ type UsersPropsType = {
   currentPage: number
 }
 
-export const Users: FC<UsersPropsType> = ({ users, currentPage }) => {
+export const Users: FC<UsersPropsType> = memo(({ users, currentPage }) => {
   return (
     <TableContainer
       width={'100%'}
@@ -67,4 +67,4 @@ export const Users: FC<UsersPropsType> = ({ users, currentPage }) => {
       </Table>
     </TableContainer>
   )
-}
+})

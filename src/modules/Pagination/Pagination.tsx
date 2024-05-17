@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { Box, Button, Text } from '@chakra-ui/react'
 import { usePagination } from './hooks/usePagination'
 
@@ -7,7 +7,7 @@ type PaginationProps = {
   totalPages: number
 }
 
-export const Pagination: FC<PaginationProps> = ({ items, totalPages }) => {
+export const Pagination: FC<PaginationProps> = memo(({ items, totalPages }) => {
   const { currentPage, handleNextPage, handlePrevPage } = usePagination()
 
   return (
@@ -63,4 +63,4 @@ export const Pagination: FC<PaginationProps> = ({ items, totalPages }) => {
       </Box>
     </Box>
   )
-}
+})
