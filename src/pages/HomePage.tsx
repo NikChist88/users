@@ -1,7 +1,12 @@
-import { Container } from '@chakra-ui/react'
-import { App } from '../App'
+import { Container, Spinner } from '@chakra-ui/react'
+import { Filters, useFilters } from '@/modules/Filters'
+import { Pagination, usePagination } from '@/modules/Pagination'
+import { Users } from '@/modules/Users'
 
 export const HomePage = () => {
+  const { users, isLoading, totalItems, totalPages } = useFilters()
+  const { currentPage } = usePagination()
+
   return (
     <Container
       display={'flex'}
@@ -12,7 +17,16 @@ export const HomePage = () => {
       w={'100%'}
       padding={'30px'}
     >
-      <App />
+      {isLoading && <Spinner />}
+      <Filters />
+      <Users
+        users={users}
+        currentPage={currentPage}
+      />
+      <Pagination
+        totalItems={totalItems}
+        totalPages={totalPages}
+      />
     </Container>
   )
 }
