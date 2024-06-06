@@ -12,7 +12,7 @@ type UserPropsType = {
 
 export const User: FC<UserPropsType> = memo(({ user }) => {
   const { id, name, email, role, company, country } = user
-  const { handleDeleteUser } = useUsers(id, name)
+  const { handleDeleteUser } = useUsers(user)
   const initials = getInitials(name)
 
   return (

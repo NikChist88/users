@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "name": "Janina Carnow",
+      "name": "Julia Roberts",
       "email": "jcarnow0@tuttocitta.it",
       "role": "Electrician",
       "company": "Dietrich, Heller and Williamson",
@@ -300,7 +300,7 @@
       "id": "e5c6",
       "name": "Nikita Chistyakov",
       "email": "nikchist88@mail.ru",
-      "role": "Engineer",
+      "role": "Supervisor",
       "company": "Google Inc.",
       "country": "🇷🇺 Russia"
     },
@@ -351,14 +351,6 @@
       "role": "Construction Worker",
       "company": "Jhon and Sons",
       "country": "🇺🇸 USA"
-    },
-    {
-      "id": "547c",
-      "name": "Nick Hawk",
-      "email": "hawks@hawks.com",
-      "role": "Supervisor",
-      "company": "Hawks and Sons",
-      "country": "🇵🇹 Protugal"
     },
     {
       "id": "fe5a",

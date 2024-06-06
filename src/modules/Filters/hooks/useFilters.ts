@@ -1,11 +1,10 @@
-import { useCallback } from 'react'
 import { useAppSelector, useGetUsersQuery } from '@/store'
-import { UserType } from '@/types'
 import {
   selectLimitFilter,
   selectRoleFilter,
   selectSearchQuery,
 } from '../store/filterSlice'
+import { searchByName, filterByRole } from '@/helpers'
 
 export const useFilters = () => {
   const limitFilter = useAppSelector(selectLimitFilter)
@@ -13,20 +12,10 @@ export const useFilters = () => {
   const searchQuery = useAppSelector(selectSearchQuery)
   const { data = [], isLoading } = useGetUsersQuery()
 
-  const filterByName = useCallback((data: UserType[], name: string) => {
-    return data.filter((user) =>
-      user.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
-    )
-  }, [])
-
-  const filterByRole = useCallback((data: UserType[], role: string) => {
-    return data.filter((user) => user.role === role)
-  }, [])
-
   let filteredUsers
 
   if (searchQuery) {
-    filteredUsers = filterByName(data, searchQuery)
+    filteredUsers = searchByName(data, searchQuery)
   } else if (roleFilter) {
     filteredUsers = filterByRole(data, roleFilter)
   } else {

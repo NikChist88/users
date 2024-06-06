@@ -7,7 +7,7 @@ import {
   Input,
   Select,
 } from '@chakra-ui/react'
-import { useUserForm } from '../hooks/useUserForm'
+import { useUsers } from '../hooks/useUsers'
 import { UserType } from '@/types'
 
 const roles: string[] = [
@@ -31,7 +31,7 @@ type UserFormProps = {
 }
 
 export const UserForm: FC<UserFormProps> = memo(({ user, onClose }) => {
-  const { register, handleSubmit, onSubmit } = useUserForm(user, onClose)
+  const { register, handleSubmit, onSubmit } = useUsers(user, onClose)
 
   return (
     <>

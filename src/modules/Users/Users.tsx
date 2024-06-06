@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { User, UserModal } from './components'
 import { UserType } from '@/types'
-import './Users.css'
+import './styles.css'
 
 const titles: string[] = [
   'uuid',

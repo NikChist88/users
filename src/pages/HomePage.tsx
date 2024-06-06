@@ -1,4 +1,5 @@
-import { Container, Spinner } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
+import { Spinner } from '@/ui/Spinner'
 import { Filters, useFilters } from '@/modules/Filters'
 import { Pagination, usePagination } from '@/modules/Pagination'
 import { Users } from '@/modules/Users'
