@@ -3,8 +3,8 @@
     {
       "id": "1",
       "name": "Julia Roberts",
-      "email": "jcarnow0@tuttocitta.it",
-      "role": "Electrician",
+      "email": "julia@roberts.com",
+      "role": "Estimator",
       "company": "Dietrich, Heller and Williamson",
       "country": "🇵🇹 Protugal"
     },
@@ -356,9 +356,25 @@
       "id": "fe5a",
       "name": "Joe Scarpo",
       "email": "mafioznik@2k.czech",
-      "role": "Supervisor",
+      "role": "Surveyor",
       "company": "2k Czech Inc.",
       "country": "🇺🇸 USA"
+    },
+    {
+      "id": "_EIo",
+      "name": "Sam Sepiol",
+      "email": "samsepiol@gmail.com",
+      "role": "Supervisor",
+      "company": "Mr.Robot Inc.",
+      "country": "🇺🇸 USA"
+    },
+    {
+      "id": "xNoA",
+      "name": "Freddy Mercury",
+      "email": "mercury@legend.com",
+      "role": "Supervisor",
+      "company": "Mercury Inc.",
+      "country": "🇮🇳 India"
     }
   ]
 }

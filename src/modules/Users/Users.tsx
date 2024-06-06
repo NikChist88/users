@@ -12,14 +12,7 @@ import { User, UserModal } from './components'
 import { UserType } from '@/types'
 import './styles.css'
 
-const titles: string[] = [
-  'uuid',
-  'user',
-  'role',
-  'company',
-  'location',
-  'actions',
-]
+const titles: string[] = ['user', 'role', 'company', 'location', 'actions']
 
 type UsersPropsType = {
   users: UserType[][]

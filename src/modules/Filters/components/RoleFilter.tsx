@@ -1,5 +1,5 @@
 import { ChangeEvent, FC } from 'react'
-import { Select } from '@chakra-ui/react'
+import { Select, Box, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { selectRoleFilter, setRoleFilterAC } from '../store/filterSlice'
 
@@ -16,6 +16,7 @@ const roles: string[] = [
   'Project Manager',
   'Construction Worker',
   'Construction Foreman',
+  'Actor',
 ]
 
 export const RoleFilter: FC = () => {
@@ -27,21 +28,32 @@ export const RoleFilter: FC = () => {
   }
 
   return (
-    <Select
-      maxWidth={'300px'}
-      height={'35px'}
-      placeholder="Filter by roles..."
-      defaultValue={roleFilter}
-      onChange={handleChangeRoleFilter}
+    <Box
+      display={'flex'}
+      alignItems={'center'}
     >
-      {roles.map((role, index) => (
-        <option
-          key={index}
-          value={role}
-        >
-          {role}
-        </option>
-      ))}
-    </Select>
+      <Text
+        flex={'1 0 90px'}
+        fontSize={'14px'}
+      >
+        Filter by role:
+      </Text>
+      <Select
+        width={'300px'}
+        height={'35px'}
+        placeholder="All"
+        defaultValue={roleFilter}
+        onChange={handleChangeRoleFilter}
+      >
+        {roles.map((role, index) => (
+          <option
+            key={index}
+            value={role}
+          >
+            {role}
+          </option>
+        ))}
+      </Select>
+    </Box>
   )
 }

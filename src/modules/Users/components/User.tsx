@@ -4,20 +4,19 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 import { UserModal } from './UserModal'
 import { useUsers } from '../hooks/useUsers'
 import { UserType } from '@/types'
-import { getInitials } from '@/helpers/getInitials'
+import { getInitials } from '@/helpers'
 
 type UserPropsType = {
   user: UserType
 }
 
 export const User: FC<UserPropsType> = memo(({ user }) => {
-  const { id, name, email, role, company, country } = user
+  const { name, email, role, company, country } = user
   const { handleDeleteUser } = useUsers(user)
   const initials = getInitials(name)
 
   return (
     <Tr>
-      <Td>{id}</Td>
       <Td padding={'8px 16px'}>
         <Box
           display={'flex'}

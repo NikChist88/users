@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Box, Button, Text } from '@chakra-ui/react'
 import { usePagination } from './hooks/usePagination'
-import './Pagination.css'
+import './styles.css'
 
 type PaginationProps = {
   totalItems: number
