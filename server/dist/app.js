@@ -6,13 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const users_1 = require("./routes/users");
+const routes_1 = require("./routes");
 exports.app = (0, express_1.default)();
 const port = 3003;
 exports.app.use(express_1.default.json());
 exports.app.use(express_1.default.urlencoded({ extended: false }));
 exports.app.use((0, cors_1.default)());
-exports.app.use('/users', users_1.usersRouter);
+exports.app.use('/users', routes_1.usersRouter);
+exports.app.use('/auth', routes_1.authRouter);
 // listening port
 exports.app.listen(port, () => {
     console.log(`App listening on port ${port}`);

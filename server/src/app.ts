@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { usersRouter } from './routes/users'
+import { usersRouter, authRouter } from './routes'
 
 export const app = express()
 const port = 3003
@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 
 app.use('/users', usersRouter)
+app.use('/auth', authRouter)
 
 // listening port
 app.listen(port, () => {
