@@ -85,14 +85,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             yield prisma_client_1.prisma.userData.update({
                 where: { id: user.id },
                 data: {
-                    name: req.body.name,
-                    email: req.body.email,
-                    role: req.body.role,
-                    company: req.body.company,
-                    country: req.body.country,
+                    name: req.body.searchByName
                 },
             });
-            res.status(200).json({ message: 'User data updated!' });
         }
         else {
             res.status(404).json({ message: 'User not found!' });
