@@ -7,14 +7,21 @@ export type UserType = {
   country: string
 }
 
-export type UserDetailes = {
-  name: string
-  gender: string
-  dateOfBirth: string
+export type LoginData = {
   email: string
-  role: string
-  company: string
-  country: string
-  address: string
-  phone: string
+  password: string
+  rememberMe: boolean
+}
+
+export type RegisterData = {
+  email: string
+  name: string
+  password: string
+}
+
+export type Response = {
+  id: string
+  email: string
+  name: string
+  token: string
 }

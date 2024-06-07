@@ -12,7 +12,14 @@ import { User, UserModal } from './components'
 import { UserType } from '@/types'
 import './styles.css'
 
-const titles: string[] = ['user', 'role', 'company', 'location', 'actions']
+const tableHeaders: string[] = [
+  'user',
+  'email',
+  'role',
+  'company',
+  'location',
+  'actions',
+]
 
 type UsersPropsType = {
   users: UserType[][]
@@ -35,7 +42,7 @@ export const Users: FC<UsersPropsType> = memo(({ users, currentPage }) => {
       >
         <Thead bgColor={'#2883CC'}>
           <Tr>
-            {titles.map((title, index) => (
+            {tableHeaders.map((title, index) => (
               <Th
                 key={index}
                 color={'#fff'}

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { ChakraProvider } from '@chakra-ui/react'
 import { Provider } from 'react-redux'
-import store from '@/store/store'
+import { store } from '@/store/store'
 import { ToastContainer } from 'react-toastify'
 import {
   createBrowserRouter,
@@ -9,19 +9,15 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom'
-import { MainLayout } from './layouts/MainLayout'
 import { HomePage, AuthPage, ErrorPage } from './pages'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './index.css'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route
-      path="/"
-      element={<MainLayout />}
-    >
+    <>
       <Route
-        index
+        path="/"
         element={<HomePage />}
       />
       <Route
@@ -32,7 +28,7 @@ export const router = createBrowserRouter(
         path="*"
         element={<ErrorPage />}
       />
-    </Route>
+    </>
   )
 )
 

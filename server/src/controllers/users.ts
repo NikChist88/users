@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { prisma } from '../prisma/prisma-client'
-import { db } from '../data/data'
 
 // get users
 export const getUsers = async (req: Request, res: Response) => {
@@ -22,6 +21,7 @@ export const getUserById = (req: Request, res: Response) => {
       res.status(404).json({ message: 'User not found!' })
     } else {
       res.status(200).json(user)
+      return user
     }
   } catch {
     res.status(500).json({ message: 'Something went wrong!' })

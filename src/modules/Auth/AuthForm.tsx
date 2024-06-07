@@ -31,7 +31,7 @@ export const AuthForm = () => {
         <Box
           py={{ base: '0', sm: '8' }}
           px={{ base: '4', sm: '10' }}
-          bg={{ base: 'transparent', sm: 'bg.surface' }}
+          backgroundColor={'#fff'}
           boxShadow={{ base: 'none', sm: 'md' }}
           borderRadius={{ base: 'none', sm: 'xl' }}
         >

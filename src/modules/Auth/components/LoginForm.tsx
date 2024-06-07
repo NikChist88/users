@@ -1,3 +1,4 @@
+import { HiEyeOff, HiEye } from 'react-icons/hi'
 import { useAuthForm } from '../hooks/useAuthForm'
 import { PasswordField } from './PasswordField'
 import {
@@ -8,10 +9,19 @@ import {
   HStack,
   Checkbox,
   Button,
+  IconButton,
+  InputGroup,
+  InputRightElement,
+  useDisclosure,
 } from '@chakra-ui/react'
 
 export const LoginForm = () => {
-  const { register, handleSubmit, onLoginSubmit } = useAuthForm()
+  const { register, handleSubmit, onLoginSubmit, isLoading } = useAuthForm()
+  const { isOpen, onToggle } = useDisclosure()
+
+  const onClickReveal = () => {
+    onToggle()
+  }
 
   return (
     <Stack spacing="5">
@@ -21,12 +31,30 @@ export const LoginForm = () => {
           id="loginEmail"
           type="email"
           required
-          {...register('email')}
+          {...register('email', { required: 'Title is required!' })}
         />
       </FormControl>
-      <PasswordField
-        form={'login'}
-      />
+      <FormControl>
+        <FormLabel htmlFor="password">Password:</FormLabel>
+        <InputGroup>
+          <InputRightElement>
+            <IconButton
+              variant="text"
+              aria-label={isOpen ? 'Mask password' : 'Reveal password'}
+              icon={isOpen ? <HiEyeOff /> : <HiEye />}
+              onClick={onClickReveal}
+              color={'#2883CC'}
+            />
+          </InputRightElement>
+          <Input
+            id="loginPass"
+            type={isOpen ? 'text' : 'password'}
+            autoComplete="current-password"
+            required
+            {...register('password', { required: 'Password is required!' })}
+          />
+        </InputGroup>
+      </FormControl>
       <HStack justify="space-between">
         <Checkbox
           colorScheme="blue"
@@ -46,6 +74,7 @@ export const LoginForm = () => {
           type="submit"
           colorScheme="blue"
           onClick={handleSubmit(onLoginSubmit)}
+          isLoading={isLoading}
         >
           Login
         </Button>

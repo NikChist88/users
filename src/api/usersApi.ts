@@ -5,7 +5,7 @@ const localhost = 'http://localhost:3003'
 const mockapi = 'https://661c178ae7b95ad7fa69ab18.mockapi.io/api/v1/'
 
 export const usersApi = createApi({
-  reducerPath: 'userApi',
+  reducerPath: 'usersApi',
   tagTypes: ['Users'],
   baseQuery: fetchBaseQuery({
     baseUrl: localhost,

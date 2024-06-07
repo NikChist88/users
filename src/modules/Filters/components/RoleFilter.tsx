@@ -16,7 +16,6 @@ const roles: string[] = [
   'Project Manager',
   'Construction Worker',
   'Construction Foreman',
-  'Actor',
 ]
 
 export const RoleFilter: FC = () => {

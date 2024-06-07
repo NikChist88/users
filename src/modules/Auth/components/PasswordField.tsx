@@ -10,6 +10,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useAuthForm } from '../hooks/useAuthForm'
+import { LoginData } from '@/types'
+import { useForm } from 'react-hook-form'
 
 type PasswordFieldProps = {
   form: string
@@ -17,7 +19,6 @@ type PasswordFieldProps = {
 
 export const PasswordField: FC<PasswordFieldProps> = ({ form }) => {
   const { isOpen, onToggle } = useDisclosure()
-  const { register } = useAuthForm()
 
   const onClickReveal = () => {
     onToggle()
@@ -41,7 +42,6 @@ export const PasswordField: FC<PasswordFieldProps> = ({ form }) => {
           type={isOpen ? 'text' : 'password'}
           autoComplete="current-password"
           required
-          {...register('password')}
         />
       </InputGroup>
     </FormControl>

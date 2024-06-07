@@ -44,6 +44,7 @@ export const User: FC<UserPropsType> = memo(({ user }) => {
           </Box>
         </Box>
       </Td>
+      <Td>{email}</Td>
       <Td>{role}</Td>
       <Td>{company}</Td>
       <Td>{country}</Td>
