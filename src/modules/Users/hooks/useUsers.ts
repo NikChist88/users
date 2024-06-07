@@ -6,7 +6,6 @@ import {
   useDeleteUserMutation,
   useUpdateUserMutation,
 } from '@/store'
-import { nanoid } from '@reduxjs/toolkit'
 
 export const useUsers = (user: UserType, onClose?: () => void) => {
   const [addUser] = useAddUserMutation()
@@ -14,7 +13,7 @@ export const useUsers = (user: UserType, onClose?: () => void) => {
   const [deleteUser] = useDeleteUserMutation()
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-      id: user?.id || nanoid().slice(0, 4),
+      id: user?.id || '',
       name: user?.name || '',
       email: user?.email || '',
       role: user?.role || '',
