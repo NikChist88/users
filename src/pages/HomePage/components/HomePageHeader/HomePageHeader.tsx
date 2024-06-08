@@ -1,11 +1,12 @@
 import { IconButton } from '@chakra-ui/react'
 import { MdLogout } from 'react-icons/md'
-import { logout } from '@/modules/Auth'
-import { useAppDispatch } from '@/store'
+import { logout, selectUser } from '@/modules/Auth'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { useNavigate } from 'react-router-dom'
 import './styles.css'
 
 export const HomePageHeader = () => {
+  const user = useAppSelector(selectUser)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -25,7 +26,7 @@ export const HomePageHeader = () => {
           src="student2.png"
           alt="Profile Image"
         />
-        <span>Sam Sepiol</span>
+        <span>{user?.name}</span>
       </a>
       <IconButton
         icon={<MdLogout />}

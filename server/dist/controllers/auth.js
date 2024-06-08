@@ -57,9 +57,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(400).json({ message: 'All fields is required!' });
         }
         const registeredUser = yield prisma_client_1.prisma.user.findFirst({
-            where: {
-                email,
-            },
+            where: { email },
         });
         if (registeredUser) {
             return res

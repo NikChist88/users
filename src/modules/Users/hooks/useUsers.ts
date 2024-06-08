@@ -22,6 +22,10 @@ export const useUsers = (user: User, onClose?: () => void) => {
     },
   })
 
+  const closeModal = () => {
+    onClose && onClose()
+  }
+
   const onSubmit: SubmitHandler<User> = async (data) => {
     try {
       user
@@ -29,11 +33,11 @@ export const useUsers = (user: User, onClose?: () => void) => {
         : await addUser(data).unwrap()
       toast.success(`${user ? 'User data updated!' : 'New user created!'}`)
       reset()
-      onClose && onClose()
+      closeModal()
     } catch (error) {
       alert(error)
       reset()
-      onClose && onClose()
+      closeModal()
     }
   }
 
@@ -42,8 +46,8 @@ export const useUsers = (user: User, onClose?: () => void) => {
       try {
         await deleteUser(user.id).unwrap()
         toast.success(`User ${user.name} delete successfull!`)
-      } catch (err) {
-        alert(err)
+      } catch (error) {
+        alert(error)
       }
     }
   }

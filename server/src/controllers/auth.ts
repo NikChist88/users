@@ -50,9 +50,7 @@ export const register = async (req: Request, res: Response) => {
     }
 
     const registeredUser = await prisma.user.findFirst({
-      where: {
-        email,
-      },
+      where: { email },
     })
 
     if (registeredUser) {

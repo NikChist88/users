@@ -15,14 +15,18 @@ export const useLoginForm = () => {
     onToggle()
   }
 
+  const resetFormFields = () => {
+    reset({ email: '', password: '', rememberMe: false })
+  }
+
   const onLoginSubmit: SubmitHandler<Login> = async (loginData) => {
     try {
       await loginUser(loginData).unwrap()
-      reset({ email: '', password: '', rememberMe: false })
+      resetFormFields()
       navigate('/')
     } catch {
       toast.error('Wrong email or password!')
-      reset({ email: '', password: '', rememberMe: false })
+      resetFormFields()
     }
   }
 

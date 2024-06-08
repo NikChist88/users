@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authRouter = void 0;
 const express_1 = require("express");
 const controllers_1 = require("../controllers");
-const auth_1 = require("../middlewares/auth");
+const auth_1 = require("../middleware/auth");
 exports.authRouter = (0, express_1.Router)();
 exports.authRouter.post('/login', controllers_1.login);
 exports.authRouter.post('/register', controllers_1.register);
