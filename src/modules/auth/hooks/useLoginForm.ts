@@ -1,40 +1,46 @@
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { LoginData, RegisterData } from '@/types'
 import { useLoginMutation } from '@/api/authApi'
-import { toast } from 'react-toastify'
 import { selectUser } from '../store/authSlice'
 import { useAppSelector } from '@/store'
-import { useEffect } from 'react'
+import { Login } from '@/types'
+import { toast } from 'react-toastify'
+import { useDisclosure } from '@chakra-ui/react'
 
-export const useAuthForm = () => {
+export const useLoginForm = () => {
   const [loginUser, { isLoading }] = useLoginMutation()
-  const { register, handleSubmit, reset } = useForm<LoginData>()
+  const { register, handleSubmit, reset } = useForm<Login>()
   const user = useAppSelector(selectUser)
   const navigate = useNavigate()
+  const { isOpen, onToggle } = useDisclosure()
 
   useEffect(() => {
     if (user) navigate('/')
   }, [user, navigate])
 
-  const onLoginSubmit: SubmitHandler<LoginData> = async (loginData) => {
-    try {
-      await loginUser(loginData).unwrap()
-      reset()
-      navigate('/')
-    } catch {
-      toast.error('Autorization error!')
-      reset()
-    }
+  const onClickReveal = () => {
+    onToggle()
   }
 
-  const onRegisterSubmit: SubmitHandler<RegisterData> = async (regData) => {}
+  const onLoginSubmit: SubmitHandler<Login> = async (loginData) => {
+    try {
+      await loginUser(loginData).unwrap()
+      reset({ email: '', password: '', rememberMe: false })
+      navigate('/')
+    } catch {
+      toast.error('Wrong email or password!')
+      reset({ email: '', password: '', rememberMe: false })
+    }
+  }
 
   return {
     register,
     handleSubmit,
     onLoginSubmit,
-    onRegisterSubmit,
     isLoading,
+
+    isOpen,
+    onClickReveal
   }
 }

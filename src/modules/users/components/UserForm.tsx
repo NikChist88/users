@@ -8,7 +8,7 @@ import {
   Select,
 } from '@chakra-ui/react'
 import { useUsers } from '../hooks/useUsers'
-import { UserType } from '@/types'
+import { User } from '@/types'
 
 const roles: string[] = [
   'Subcontractor',
@@ -26,7 +26,7 @@ const roles: string[] = [
 ]
 
 type UserFormProps = {
-  user: UserType
+  user: User
   onClose: () => void
 }
 

@@ -1,6 +1,5 @@
 import { HiEyeOff, HiEye } from 'react-icons/hi'
-import { useAuthForm } from '../hooks/useAuthForm'
-import { PasswordField } from './PasswordField'
+import { useLoginForm } from '../hooks/useLoginForm'
 import {
   Stack,
   FormControl,
@@ -12,16 +11,17 @@ import {
   IconButton,
   InputGroup,
   InputRightElement,
-  useDisclosure,
 } from '@chakra-ui/react'
 
 export const LoginForm = () => {
-  const { register, handleSubmit, onLoginSubmit, isLoading } = useAuthForm()
-  const { isOpen, onToggle } = useDisclosure()
-
-  const onClickReveal = () => {
-    onToggle()
-  }
+  const {
+    register,
+    handleSubmit,
+    onLoginSubmit,
+    isLoading,
+    isOpen,
+    onClickReveal,
+  } = useLoginForm()
 
   return (
     <Stack spacing="5">

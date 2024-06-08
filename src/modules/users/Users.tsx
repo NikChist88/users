@@ -9,7 +9,7 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { User, UserModal } from './components'
-import { UserType } from '@/types'
+import { User as UserType } from '@/types'
 import './styles.css'
 
 const tableHeaders: string[] = [

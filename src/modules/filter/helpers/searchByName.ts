@@ -1,6 +1,6 @@
-import { UserType } from "@/types"
+import { User } from "@/types"
 
-export const searchByName = (data: UserType[], name: string) => {
+export const searchByName = (data: User[], name: string) => {
   return data.filter((user) =>
     user.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
   )

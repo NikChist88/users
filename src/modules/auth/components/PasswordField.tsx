@@ -9,9 +9,6 @@ import {
   InputRightElement,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useAuthForm } from '../hooks/useAuthForm'
-import { LoginData } from '@/types'
-import { useForm } from 'react-hook-form'
 
 type PasswordFieldProps = {
   form: string
@@ -47,5 +44,3 @@ export const PasswordField: FC<PasswordFieldProps> = ({ form }) => {
     </FormControl>
   )
 }
-
-PasswordField.displayName = 'PasswordField'

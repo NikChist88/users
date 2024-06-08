@@ -1,13 +1,13 @@
-import { UserType } from '@/types'
+import { User } from '@/types'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import {
   useAddUserMutation,
   useDeleteUserMutation,
   useUpdateUserMutation,
-} from '@/store'
+} from '@/api/usersApi'
 
-export const useUsers = (user: UserType, onClose?: () => void) => {
+export const useUsers = (user: User, onClose?: () => void) => {
   const [addUser] = useAddUserMutation()
   const [updateUser] = useUpdateUserMutation()
   const [deleteUser] = useDeleteUserMutation()
@@ -22,7 +22,7 @@ export const useUsers = (user: UserType, onClose?: () => void) => {
     },
   })
 
-  const onSubmit: SubmitHandler<UserType> = async (data) => {
+  const onSubmit: SubmitHandler<User> = async (data) => {
     try {
       user
         ? await updateUser([user.id, data]).unwrap()

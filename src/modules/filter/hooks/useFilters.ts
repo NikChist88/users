@@ -1,4 +1,5 @@
-import { useAppSelector, useGetUsersQuery } from '@/store'
+import { useAppSelector } from '@/store'
+import { useGetUsersQuery } from '@/api/usersApi'
 import {
   selectLimitFilter,
   selectRoleFilter,

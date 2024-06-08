@@ -13,10 +13,10 @@ import {
   IconButton,
   Button,
 } from '@chakra-ui/react'
-import { UserType } from '@/types'
+import { User } from '@/types'
 
 type UserModalProps = {
-  user?: UserType
+  user?: User
   isEditMode?: boolean
 }
 

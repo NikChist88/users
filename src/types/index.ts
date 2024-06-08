@@ -1,4 +1,4 @@
-export type UserType = {
+export type User = {
   id: string
   name: string
   email: string
@@ -7,13 +7,13 @@ export type UserType = {
   country: string
 }
 
-export type LoginData = {
+export type Login = {
   email: string
   password: string
   rememberMe: boolean
 }
 
-export type RegisterData = {
+export type Register = {
   email: string
   name: string
   password: string

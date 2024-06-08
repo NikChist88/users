@@ -3,14 +3,14 @@ import { Tr, Td, Box, Text, IconButton } from '@chakra-ui/react'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { UserModal } from './UserModal'
 import { useUsers } from '../hooks/useUsers'
-import { UserType } from '@/types'
-import { getInitials } from '@/helpers'
+import { User as UserType } from '@/types'
+import { getInitials } from '../helpers/getInitials'
 
-type UserPropsType = {
+type UserProps = {
   user: UserType
 }
 
-export const User: FC<UserPropsType> = memo(({ user }) => {
+export const User: FC<UserProps> = memo(({ user }) => {
   const { name, email, role, company, country } = user
   const { handleDeleteUser } = useUsers(user)
   const initials = getInitials(name)
