@@ -1,9 +1,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '@/api/authApi'
 import { Login } from '@/types'
 import { toast } from 'react-toastify'
 import { useDisclosure } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 export const useLoginForm = () => {
   const [loginUser, { isLoading }] = useLoginMutation()
@@ -19,7 +19,7 @@ export const useLoginForm = () => {
     try {
       await loginUser(loginData).unwrap()
       reset({ email: '', password: '', rememberMe: false })
-      // navigate('/')
+      navigate('/')
     } catch {
       toast.error('Wrong email or password!')
       reset({ email: '', password: '', rememberMe: false })

@@ -1,8 +1,20 @@
 import { IconButton } from '@chakra-ui/react'
 import { MdLogout } from 'react-icons/md'
+import { logout } from '@/modules/Auth'
+import { useAppDispatch } from '@/store'
+import { useNavigate } from 'react-router-dom'
 import './styles.css'
 
 export const HomePageHeader = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const handleClickLogout = () => {
+    dispatch(logout())
+    localStorage.removeItem('token')
+    navigate('/auth')
+  }
+
   return (
     <header className="header">
       <a
@@ -20,6 +32,7 @@ export const HomePageHeader = () => {
         aria-label="logout"
         isRound
         size={'sm'}
+        onClick={handleClickLogout}
       />
     </header>
   )

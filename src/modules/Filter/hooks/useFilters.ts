@@ -11,7 +11,7 @@ export const useFilters = () => {
   const limitFilter = useAppSelector(selectLimitFilter)
   const roleFilter = useAppSelector(selectRoleFilter)
   const searchQuery = useAppSelector(selectSearchQuery)
-  const { data = [], isLoading } = useGetUsersQuery()
+  const { data = [] } = useGetUsersQuery()
 
   let filteredUsers
 
@@ -36,7 +36,6 @@ export const useFilters = () => {
   )
 
   return {
-    isLoading,
     users,
     totalPages,
     totalItems,

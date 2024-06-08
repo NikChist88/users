@@ -1,17 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { UserType } from '@/types'
-
-const localhost = 'http://localhost:3003'
-const mockapi = 'https://661c178ae7b95ad7fa69ab18.mockapi.io/api/v1/'
+import { User } from '@/types'
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
   tagTypes: ['Users'],
   baseQuery: fetchBaseQuery({
-    baseUrl: localhost,
+    baseUrl: 'http://localhost:3003',
   }),
   endpoints: (builder) => ({
-    getUsers: builder.query<UserType[], void>({
+    getUsers: builder.query<User[], void>({
       query: () => `users`,
       providesTags: (result) =>
         result
@@ -21,7 +18,7 @@ export const usersApi = createApi({
             ]
           : ['Users'],
     }),
-    addUser: builder.mutation<UserType, UserType>({
+    addUser: builder.mutation<User, User>({
       query: (user) => ({
         url: 'users',
         method: 'POST',
@@ -29,7 +26,7 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ['Users'],
     }),
-    updateUser: builder.mutation<UserType, [id: string, data: UserType]>({
+    updateUser: builder.mutation<User, [id: string, data: User]>({
       query: ([id, data]) => ({
         url: `users/${id}`,
         method: 'PUT',

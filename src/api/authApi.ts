@@ -42,4 +42,5 @@ export const authApi = createApi({
   }),
 })
 
-export const { useLoginMutation, useCurrentQuery } = authApi
+export const { useLoginMutation, useRegisterMutation, useCurrentQuery } =
+  authApi

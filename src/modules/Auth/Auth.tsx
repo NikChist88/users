@@ -11,7 +11,7 @@ import {
   Tabs,
 } from '@chakra-ui/react'
 
-export const AuthForm = () => {
+export const Auth = () => {
   return (
     <Container
       maxW="lg"
