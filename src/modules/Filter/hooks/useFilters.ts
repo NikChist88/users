@@ -5,7 +5,8 @@ import {
   selectRoleFilter,
   selectSearchQuery,
 } from '../store/filterSlice'
-import { searchByName, filterByRole } from '@/helpers'
+import { searchByName } from '../helpers/searchByName'
+import { filterByRole } from '../helpers/filterByRole'
 
 export const useFilters = () => {
   const limitFilter = useAppSelector(selectLimitFilter)

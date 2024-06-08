@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
-import { Auth } from '@/modules/Auth'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '@/store'
-import { selectUser } from '@/modules/Auth'
+import { Auth, selectUser } from '@/modules/Auth'
 
 export const AuthPage = () => {
   const user = useAppSelector(selectUser)

@@ -19,7 +19,6 @@ const paginateSlice = createSlice({
   selectors: {
     selectCurrentPage: (state) => state.currentPage,
   },
-  extraReducers: (builder) => {},
 })
 
 export const { setCurrentPageAC } = paginateSlice.actions

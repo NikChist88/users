@@ -31,7 +31,6 @@ const filtersSlice = createSlice({
     selectRoleFilter: (state) => state.roleFilter,
     selectLimitFilter: (state) => state.limitFilter,
   },
-  extraReducers: (builder) => {},
 })
 
 export const { setSearchQuery, setRoleFilter, setLimitFilter } =
