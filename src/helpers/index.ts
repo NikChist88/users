@@ -1,3 +1,3 @@
-export { searchByName } from '../modules/filter/helpers/searchByName'
-export { filterByRole } from '../modules/filter/helpers/filterByRole'
-export { getInitials } from '../modules/users/helpers/getInitials'
+export { searchByName } from '../modules/Filter/helpers/searchByName'
+export { filterByRole } from '../modules/Filter/helpers/filterByRole'
+export { getInitials } from '../modules/Users/helpers/getInitials'

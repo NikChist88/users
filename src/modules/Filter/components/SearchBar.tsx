@@ -1,14 +1,14 @@
 import { ChangeEvent } from 'react'
 import { Input, Box, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { selectSearchQuery, setSearchQueryAC } from '../store/filterSlice'
+import { selectSearchQuery, setSearchQuery } from '../store/filterSlice'
 
 export const SearchBar = () => {
   const dispatch = useAppDispatch()
   const searchQuery = useAppSelector(selectSearchQuery)
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchQueryAC(e.currentTarget.value))
+    dispatch(setSearchQuery(e.currentTarget.value))
   }
 
   return (

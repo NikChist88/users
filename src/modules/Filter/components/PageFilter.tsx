@@ -1,14 +1,14 @@
 import { ChangeEvent } from 'react'
 import { Box, Select, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { selectLimitFilter, setLimitFilterAC } from '../store/filterSlice'
+import { selectLimitFilter, setLimitFilter } from '../store/filterSlice'
 
 export const PageFilter = () => {
   const dispatch = useAppDispatch()
   const limitFilter = useAppSelector(selectLimitFilter)
 
   const handleChangePageFilter = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLimitFilterAC(+e.currentTarget.value))
+    dispatch(setLimitFilter(+e.currentTarget.value))
   }
 
   return (

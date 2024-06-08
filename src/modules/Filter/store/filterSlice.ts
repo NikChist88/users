@@ -16,13 +16,13 @@ const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    setSearchQueryAC(state, action: PayloadAction<string>) {
+    setSearchQuery(state, action: PayloadAction<string>) {
       state.searchQuery = action.payload
     },
-    setRoleFilterAC(state, action: PayloadAction<string>) {
+    setRoleFilter(state, action: PayloadAction<string>) {
       state.roleFilter = action.payload
     },
-    setLimitFilterAC(state, action: PayloadAction<number>) {
+    setLimitFilter(state, action: PayloadAction<number>) {
       state.limitFilter = action.payload
     },
   },
@@ -34,7 +34,7 @@ const filtersSlice = createSlice({
   extraReducers: (builder) => {},
 })
 
-export const { setSearchQueryAC, setRoleFilterAC, setLimitFilterAC } =
+export const { setSearchQuery, setRoleFilter, setLimitFilter } =
   filtersSlice.actions
 export const { selectSearchQuery, selectRoleFilter, selectLimitFilter } =
   filtersSlice.selectors

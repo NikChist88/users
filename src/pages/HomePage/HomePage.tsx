@@ -1,13 +1,28 @@
 import { Container } from '@chakra-ui/react'
-import { Filters, useFilters } from '@/modules/filter'
-import { Pagination, usePagination } from '@/modules/pagination'
-import { Users } from '@/modules/users'
-import { Header } from '@/components/Header/Header'
+import { Filters, useFilters } from '@/modules/Filter'
+import { Pagination, usePagination } from '@/modules/Pagination'
+import { Users } from '@/modules/Users'
+import { selectUser, selectIsAuthenticated } from '@/modules/Auth'
+import { HomePageHeader } from './components/HomePageHeader/HomePageHeader'
 import { Spinner } from '@/ui/Spinner'
+import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '@/store'
+import { useEffect } from 'react'
 
 export const HomePage = () => {
   const { users, isLoading, totalItems, totalPages } = useFilters()
   const { currentPage } = usePagination()
+  const user = useAppSelector(selectUser)
+  const authenticated = useAppSelector(selectIsAuthenticated)
+  const navigate = useNavigate()
+  console.log(user)
+  console.log(authenticated)
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth')
+    }
+  }, [user, navigate])
 
   if (isLoading) {
     return <Spinner />
@@ -15,7 +30,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <Header />
+      <HomePageHeader />
       <Container
         display={'flex'}
         flexDirection={'column'}

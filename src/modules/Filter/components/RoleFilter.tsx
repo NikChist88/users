@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from 'react'
 import { Select, Box, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { selectRoleFilter, setRoleFilterAC } from '../store/filterSlice'
+import { selectRoleFilter, setRoleFilter } from '../store/filterSlice'
 
 const roles: string[] = [
   'Subcontractor',
@@ -23,7 +23,7 @@ export const RoleFilter: FC = () => {
   const roleFilter = useAppSelector(selectRoleFilter)
 
   const handleChangeRoleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setRoleFilterAC(e.currentTarget.value))
+    dispatch(setRoleFilter(e.currentTarget.value))
   }
 
   return (

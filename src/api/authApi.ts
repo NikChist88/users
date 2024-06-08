@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Login, Response } from '@/types'
+import { Login, Register, Response } from '@/types'
 import { AppRootState } from '@/store'
 
 export const authApi = createApi({
@@ -26,7 +26,20 @@ export const authApi = createApi({
         body: loginData,
       }),
     }),
+    register: builder.mutation<Response, Register>({
+      query: (registerData) => ({
+        url: 'auth/register',
+        method: 'POST',
+        body: registerData,
+      }),
+    }),
+    current: builder.query<Response, void>({
+      query: () => ({
+        url: 'auth/current',
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation } = authApi
+export const { useLoginMutation, useCurrentQuery } = authApi

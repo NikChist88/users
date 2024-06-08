@@ -2,7 +2,7 @@ import { IconButton } from '@chakra-ui/react'
 import { MdLogout } from 'react-icons/md'
 import './styles.css'
 
-export const Header = () => {
+export const HomePageHeader = () => {
   return (
     <header className="header">
       <a

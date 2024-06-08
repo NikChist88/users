@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { usersApi } from '@/api/usersApi'
 import { authApi } from '@/api/authApi'
-import { filtersReducer } from '@/modules/filter'
-import { paginateReducer } from '@/modules/pagination'
-import { authReducer, listenerMiddleware } from '@/modules/auth'
+import { filtersReducer } from '@/modules/Filter'
+import { paginateReducer } from '@/modules/Pagination'
+import { authReducer, listenerMiddleware } from '@/modules/Auth'
 
 const rootReducer = combineReducers({
   [usersApi.reducerPath]: usersApi.reducer,
