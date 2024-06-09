@@ -7,10 +7,13 @@ import {
   Th,
   Tbody,
   Box,
+  Button,
 } from '@chakra-ui/react'
-import { User, UserModal } from './components'
+import { UserItem } from './components'
 import { User as UserType } from '@/types'
+import { IoMdAdd } from 'react-icons/io'
 import './styles.css'
+import { useNavigate } from 'react-router-dom'
 
 const tableHeaders: string[] = [
   'user',
@@ -27,6 +30,8 @@ type UsersPropsType = {
 }
 
 export const Users: FC<UsersPropsType> = memo(({ users, currentPage }) => {
+  const navigate = useNavigate()
+
   return (
     <TableContainer className="tableContainer">
       <Box
@@ -34,7 +39,17 @@ export const Users: FC<UsersPropsType> = memo(({ users, currentPage }) => {
         justifyContent={'end'}
         marginBottom={'15px'}
       >
-        <UserModal isEditMode={false} />
+        <Button
+          width={'100%'}
+          maxWidth={'150px'}
+          colorScheme="blue"
+          leftIcon={<IoMdAdd size={'18px'} />}
+          height={'35px'}
+          fontSize={'14px'}
+          onClick={() => navigate('/add')}
+        >
+          Add New User
+        </Button>
       </Box>
       <Table
         size="md"
@@ -54,7 +69,7 @@ export const Users: FC<UsersPropsType> = memo(({ users, currentPage }) => {
         </Thead>
         <Tbody>
           {users[currentPage]?.map((user) => (
-            <User
+            <UserItem
               key={user.id}
               user={user}
             />

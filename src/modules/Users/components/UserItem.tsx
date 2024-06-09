@@ -3,17 +3,16 @@ import { Tr, Td, Box, Text, IconButton } from '@chakra-ui/react'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { UserModal } from './UserModal'
 import { useUsers } from '../hooks/useUsers'
-import { User as UserType } from '@/types'
+import { User } from '@/types'
 import { getInitials } from '../helpers/getInitials'
 
-type UserProps = {
-  user: UserType
+type UserItemProps = {
+  user: User
 }
 
-export const User: FC<UserProps> = memo(({ user }) => {
-  const { name, email, role, company, country } = user
+export const UserItem: FC<UserItemProps> = memo(({ user }) => {
   const { handleDeleteUser } = useUsers(user)
-  const initials = getInitials(name)
+  const initials = getInitials(user.name)
 
   return (
     <Tr>
@@ -39,15 +38,15 @@ export const User: FC<UserProps> = memo(({ user }) => {
             display={'flex'}
             flexDirection={'column'}
           >
-            <Text>{name}</Text>
-            <Text fontSize={'xs'}>{email}</Text>
+            <Text>{user.name}</Text>
+            <Text fontSize={'xs'}>{user.email}</Text>
           </Box>
         </Box>
       </Td>
-      <Td>{email}</Td>
-      <Td>{role}</Td>
-      <Td>{company}</Td>
-      <Td>{country}</Td>
+      <Td>{user.email}</Td>
+      <Td>{user.role}</Td>
+      <Td>{user.company}</Td>
+      <Td>{user.country}</Td>
       <Td>
         <Box
           display={'flex'}

@@ -54,7 +54,6 @@ export const useUsers = (user: User, onClose?: () => void) => {
 
   return {
     handleDeleteUser,
-
     onSubmit,
     handleSubmit,
     register,

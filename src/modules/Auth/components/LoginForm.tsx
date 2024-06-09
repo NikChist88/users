@@ -11,17 +11,12 @@ import {
   IconButton,
   InputGroup,
   InputRightElement,
+  useDisclosure,
 } from '@chakra-ui/react'
 
 export const LoginForm = () => {
-  const {
-    register,
-    handleSubmit,
-    onLoginSubmit,
-    isLoading,
-    isOpen,
-    onClickReveal,
-  } = useLoginForm()
+  const { register, handleSubmit, onLoginSubmit, isLoading } = useLoginForm()
+  const { isOpen, onToggle } = useDisclosure()
 
   return (
     <Stack spacing="5">
@@ -42,7 +37,7 @@ export const LoginForm = () => {
               variant="text"
               aria-label={isOpen ? 'Mask password' : 'Reveal password'}
               icon={isOpen ? <HiEyeOff /> : <HiEye />}
-              onClick={onClickReveal}
+              onClick={() => onToggle()}
               color={'#2883CC'}
             />
           </InputRightElement>

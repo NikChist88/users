@@ -9,8 +9,9 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom'
-import { HomePage, AuthPage, ErrorPage } from './pages'
+import { HomePage, AuthPage, ErrorPage, AddUserPage } from './pages'
 import { AuthProvider } from './modules/Auth'
+import { MainLayout } from './layouts/MainLayout'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './index.css'
 
@@ -19,15 +20,24 @@ export const router = createBrowserRouter(
     <>
       <Route
         path="/"
-        element={<HomePage />}
-      />
+        element={<MainLayout />}
+      >
+        <Route
+          index
+          element={<HomePage />}
+        />
+        <Route
+          path="add"
+          element={<AddUserPage />}
+        />
+        <Route
+          path="*"
+          element={<ErrorPage />}
+        />
+      </Route>
       <Route
         path="auth"
         element={<AuthPage />}
-      />
-      <Route
-        path="*"
-        element={<ErrorPage />}
       />
     </>
   )

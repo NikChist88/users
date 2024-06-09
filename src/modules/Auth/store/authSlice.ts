@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authApi } from '@/api/authApi'
+import { authApi } from '@/modules/Auth/api/authApi'
 import { Response } from '@/types'
 
 type InitialState = {

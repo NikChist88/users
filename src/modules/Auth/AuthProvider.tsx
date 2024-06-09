@@ -1,4 +1,4 @@
-import { useCurrentQuery } from '@/api/authApi'
+import { useCurrentQuery } from '@/modules/Auth/api/authApi'
 import { Spinner } from '@/ui/Spinner'
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {

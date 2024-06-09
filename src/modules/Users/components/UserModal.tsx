@@ -44,7 +44,7 @@ export const UserModal: FC<UserModalProps> = memo(({ user, isEditMode }) => {
         <Button
           width={'100%'}
           maxWidth={'150px'}
-          colorScheme="blue"
+          colorScheme='blue'
           onClick={onOpen}
           leftIcon={<IoMdAdd size={'18px'} />}
           height={'35px'}

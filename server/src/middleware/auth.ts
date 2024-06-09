@@ -24,7 +24,6 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     req.body.user = user
-
     next()
   } catch {
     res.status(401).json({ message: 'Not authorized!' })
