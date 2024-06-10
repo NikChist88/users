@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import {
-  getUsers,
+  getAllUsers,
   getUserById,
   createUser,
   deleteUser,
@@ -9,7 +9,7 @@ import {
 
 export const usersRouter = Router()
 
-usersRouter.get('/', getUsers)
+usersRouter.get('/', getAllUsers)
 usersRouter.get('/:id', getUserById)
 usersRouter.post('/', createUser)
 usersRouter.delete('/:id', deleteUser)

@@ -1,13 +1,14 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import {
-  Box,
-  Button,
   FormControl,
   FormLabel,
   Input,
   Select,
+  Button,
+  Box,
 } from '@chakra-ui/react'
-import { useUsers } from '../hooks/useUsers'
+import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import { User } from '@/types'
 
 const roles: string[] = [
@@ -26,36 +27,48 @@ const roles: string[] = [
 ]
 
 type UserFormProps = {
-  user: User
-  onClose: () => void
+  user?: User
+  onSubmit: (values: User) => void
 }
 
-export const UserForm: FC<UserFormProps> = memo(({ user, onClose }) => {
-  const { register, handleSubmit, onSubmit } = useUsers(user, onClose)
+export const UserForm: FC<UserFormProps> = ({ user, onSubmit }) => {
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      id: user?.id || '',
+      name: user?.name || '',
+      email: user?.email || '',
+      role: user?.role || '',
+      company: user?.company || '',
+      country: user?.country || '',
+    },
+  })
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
         <FormLabel>User name:</FormLabel>
         <Input
-          defaultValue={user?.name}
-          {...register('name')}
+          defaultValue={user?.name || ''}
           placeholder="User name..."
+          bgColor={'#EEEFF1'}
+          {...register('name')}
         />
       </FormControl>
       <FormControl mt={4}>
         <FormLabel>Email:</FormLabel>
         <Input
+          defaultValue={user?.email || ''}
           type="email"
-          {...register('email')}
-          defaultValue={user?.email}
           placeholder="Email..."
+          bgColor={'#EEEFF1'}
+          {...register('email')}
         />
       </FormControl>
       <FormControl mt={4}>
         <FormLabel>Role:</FormLabel>
         <Select
           placeholder={user?.role || 'Select role...'}
+          bgColor={'#EEEFF1'}
           {...register('role')}
         >
           {roles.map((role, index) => (
@@ -71,34 +84,55 @@ export const UserForm: FC<UserFormProps> = memo(({ user, onClose }) => {
       <FormControl mt={4}>
         <FormLabel>Company:</FormLabel>
         <Input
-          {...register('company')}
-          placeholder="Company..."
           defaultValue={user?.company}
+          placeholder="Company..."
+          bgColor={'#EEEFF1'}
+          {...register('company')}
         />
       </FormControl>
       <FormControl mt={4}>
         <FormLabel>Country:</FormLabel>
         <Input
-          {...register('country')}
-          placeholder="Country..."
           defaultValue={user?.country}
+          placeholder="Country..."
+          bgColor={'#EEEFF1'}
+          {...register('country')}
         />
       </FormControl>
       <Box
         display={'flex'}
-        justifyContent={'flex-end'}
+        justifyContent={'space-between'}
         marginTop={'20px'}
       >
         <Button
-          colorScheme="blue"
-          mr={3}
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
+          backgroundColor={'#00274A'}
+          _hover={{ backgroundColor: '#013058' }}
+          color={'#fff'}
+          onClick={() => reset()}
         >
-          Save
+          Reset Form
         </Button>
-        <Button onClick={onClose}>Cancel</Button>
+        <div>
+          <Button
+            backgroundColor={'#FFA42F'}
+            _hover={{ backgroundColor: '#e0912a' }}
+            color={'#fff'}
+            mr={3}
+            type="submit"
+          >
+            Save
+          </Button>
+          <Link to={'/'}>
+            <Button
+              backgroundColor={'#00274A'}
+              _hover={{ backgroundColor: '#013058' }}
+              color={'#fff'}
+            >
+              Cancel
+            </Button>
+          </Link>
+        </div>
       </Box>
-    </>
+    </form>
   )
-})
+}

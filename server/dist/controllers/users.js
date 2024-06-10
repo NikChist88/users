@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.deleteUser = exports.createUser = exports.getUserById = exports.getUsers = void 0;
+exports.updateUser = exports.deleteUser = exports.createUser = exports.getUserById = exports.getAllUsers = void 0;
 const prisma_client_1 = require("../prisma/prisma-client");
 // get users
-const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield prisma_client_1.prisma.userData.findMany();
         res.status(200).json(users);
@@ -22,11 +22,13 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ message: 'Something went wrong!' });
     }
 });
-exports.getUsers = getUsers;
+exports.getAllUsers = getAllUsers;
 // get user by id
-const getUserById = (req, res) => {
+const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = prisma_client_1.prisma.userData.findFirst({ where: { id: req.params.id } });
+        const user = yield prisma_client_1.prisma.userData.findFirst({
+            where: { id: req.params.id },
+        });
         if (!user) {
             res.status(404).json({ message: 'User not found!' });
         }
@@ -35,10 +37,10 @@ const getUserById = (req, res) => {
             return user;
         }
     }
-    catch (_a) {
+    catch (_b) {
         res.status(500).json({ message: 'Something went wrong!' });
     }
-};
+});
 exports.getUserById = getUserById;
 // create user
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,7 +56,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
         res.status(201).json({ message: 'User created!' });
     }
-    catch (_b) {
+    catch (_c) {
         res.status(500).json({ message: 'Something went wrong!' });
     }
 });
@@ -62,7 +64,9 @@ exports.createUser = createUser;
 // delete user
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = prisma_client_1.prisma.userData.findFirst({ where: { id: req.params.id } });
+        const user = yield prisma_client_1.prisma.userData.findFirst({
+            where: { id: req.params.id },
+        });
         if (!user) {
             res.status(404).json({ message: 'User not found!' });
         }
@@ -71,7 +75,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             res.status(200).json({ message: 'User deleted!' });
         }
     }
-    catch (_c) {
+    catch (_d) {
         res.status(500).json({ message: 'Something went wrong!' });
     }
 });
@@ -99,7 +103,7 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             res.status(404).json({ message: 'User not found!' });
         }
     }
-    catch (_d) {
+    catch (_e) {
         res.status(500).json({ message: 'Something went wrong!' });
     }
 });

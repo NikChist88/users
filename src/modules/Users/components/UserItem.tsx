@@ -1,10 +1,11 @@
 import { FC, memo } from 'react'
 import { Tr, Td, Box, Text, IconButton } from '@chakra-ui/react'
 import { RiDeleteBinLine } from 'react-icons/ri'
-import { UserModal } from './UserModal'
 import { useUsers } from '../hooks/useUsers'
 import { User } from '@/types'
 import { getInitials } from '../helpers/getInitials'
+import { FaRegEdit } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 type UserItemProps = {
   user: User
@@ -52,10 +53,21 @@ export const UserItem: FC<UserItemProps> = memo(({ user }) => {
           display={'flex'}
           gap={'0 10px'}
         >
-          <UserModal
-            user={user}
-            isEditMode
-          />
+          <Link to={`/edit/${user.id}`}>
+            <IconButton
+              size={'xs'}
+              title="Edit User"
+              aria-label="edit"
+              backgroundColor={'transparent'}
+              icon={
+                <FaRegEdit
+                  size={'16px'}
+                  cursor={'pointer'}
+                  color="#1C84CA"
+                />
+              }
+            />
+          </Link>
           <IconButton
             aria-label="delete"
             title="Delete User"

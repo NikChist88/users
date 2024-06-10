@@ -1,0 +1,12 @@
+.user-page {
+  padding: 15px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+}

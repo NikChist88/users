@@ -1,9 +1,8 @@
-import { Container } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Filters, useFilters } from '@/modules/Filter'
 import { Pagination, usePagination } from '@/modules/Pagination'
 import { Users } from '@/modules/Users'
-import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
 import { selectUser } from '@/modules/Auth'
 import { useAppSelector } from '@/store'
 

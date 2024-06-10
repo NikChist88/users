@@ -11,12 +11,12 @@ datasource db {
 }
 
 model UserData {
-  id       String @id @default(uuid())
-  name     String
-  email    String
-  role     String
-  company  String
-  country  String
+  id      String @id @default(uuid())
+  name    String
+  email   String
+  role    String
+  company String
+  country String
 }
 
 model User {

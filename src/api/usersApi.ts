@@ -18,6 +18,9 @@ export const usersApi = createApi({
             ]
           : ['Users'],
     }),
+    getUserById: builder.query<User, string>({
+      query: (id) => `users/${id}`,
+    }),
     addUser: builder.mutation<User, User>({
       query: (user) => ({
         url: 'users',
@@ -26,11 +29,11 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ['Users'],
     }),
-    updateUser: builder.mutation<User, [id: string, data: User]>({
-      query: ([id, data]) => ({
-        url: `users/${id}`,
+    updateUser: builder.mutation<string, User>({
+      query: (user) => ({
+        url: `users/${user.id}`,
         method: 'PUT',
-        body: data,
+        body: user,
       }),
       invalidatesTags: ['Users'],
     }),
@@ -46,6 +49,7 @@ export const usersApi = createApi({
 
 export const {
   useGetUsersQuery,
+  useGetUserByIdQuery,
   useAddUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,

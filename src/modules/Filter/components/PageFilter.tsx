@@ -18,13 +18,13 @@ export const PageFilter = () => {
       height={'35px'}
     >
       <Text
-        flex={'0 0 70px'}
+        flex={'1 0 110px'}
         fontSize={'14px'}
       >
-        Per page:
+        Users per page:
       </Text>
       <Select
-        width={'130px'}
+        width={'150px'}
         height={'35px'}
         defaultValue={limitFilter}
         onChange={handleChangePageFilter}

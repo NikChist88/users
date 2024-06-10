@@ -12,8 +12,8 @@ import {
 import { UserItem } from './components'
 import { User as UserType } from '@/types'
 import { IoMdAdd } from 'react-icons/io'
-import './styles.css'
 import { useNavigate } from 'react-router-dom'
+import './styles.css'
 
 const tableHeaders: string[] = [
   'user',

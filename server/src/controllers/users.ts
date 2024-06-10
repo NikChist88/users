@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { prisma } from '../prisma/prisma-client'
 
 // get users
-export const getUsers = async (req: Request, res: Response) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await prisma.userData.findMany()
     res.status(200).json(users)
@@ -13,9 +13,11 @@ export const getUsers = async (req: Request, res: Response) => {
 }
 
 // get user by id
-export const getUserById = (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
   try {
-    const user = prisma.userData.findFirst({ where: { id: req.params.id } })
+    const user = await prisma.userData.findFirst({
+      where: { id: req.params.id },
+    })
 
     if (!user) {
       res.status(404).json({ message: 'User not found!' })
@@ -50,7 +52,9 @@ export const createUser = async (req: Request, res: Response) => {
 // delete user
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const user = prisma.userData.findFirst({ where: { id: req.params.id } })
+    const user = await prisma.userData.findFirst({
+      where: { id: req.params.id },
+    })
 
     if (!user) {
       res.status(404).json({ message: 'User not found!' })
