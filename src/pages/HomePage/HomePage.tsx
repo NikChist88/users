@@ -8,7 +8,7 @@ import { useAppSelector } from '@/store'
 
 export const HomePage = () => {
   const { users, totalItems, totalPages } = useFilters()
-  const { currentPage } = usePagination()
+  const { page } = usePagination()
   const user = useAppSelector(selectUser)
   const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ export const HomePage = () => {
       <Filters />
       <Users
         users={users}
-        currentPage={currentPage}
+        currentPage={page}
       />
       <Pagination
         totalItems={totalItems}

@@ -1,17 +1,13 @@
 import { useAppSelector } from '@/store'
 import { useGetUsersQuery } from '@/api/usersApi'
-import {
-  selectLimitFilter,
-  selectRoleFilter,
-  selectSearchQuery,
-} from '../store/filterSlice'
+import * as select from '../store/filterSlice'
 import { searchByName } from '../helpers/searchByName'
 import { filterByRole } from '../helpers/filterByRole'
 
 export const useFilters = () => {
-  const limitFilter = useAppSelector(selectLimitFilter)
-  const roleFilter = useAppSelector(selectRoleFilter)
-  const searchQuery = useAppSelector(selectSearchQuery)
+  const limitFilter = useAppSelector(select.limitFilter)
+  const roleFilter = useAppSelector(select.roleFilter)
+  const searchQuery = useAppSelector(select.searchQuery)
   const { data = [] } = useGetUsersQuery()
 
   let filteredUsers

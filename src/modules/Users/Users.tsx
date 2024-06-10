@@ -10,7 +10,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { UserItem } from './components'
-import { User as UserType } from '@/types'
+import { User } from '@/types'
 import { IoMdAdd } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import './styles.css'
@@ -25,7 +25,7 @@ const tableHeaders: string[] = [
 ]
 
 type UsersPropsType = {
-  users: UserType[][]
+  users: User[][]
   currentPage: number
 }
 

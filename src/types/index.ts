@@ -7,16 +7,10 @@ export type User = {
   country: string
 }
 
-export type Login = {
+export type Auth = {
   email: string
   password: string
-  rememberMe: boolean
-}
-
-export type Register = {
-  email: string
-  name: string
-  password: string
+  name?: string
 }
 
 export type Response = {

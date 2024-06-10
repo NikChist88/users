@@ -9,17 +9,16 @@ import {
   InputRightElement,
   useDisclosure,
 } from '@chakra-ui/react'
+import { UseFormRegister } from 'react-hook-form'
+import { Auth } from '@/types'
 
 type PasswordFieldProps = {
-  form: string
+  form?: string
+  register: UseFormRegister<Auth>
 }
 
-export const PasswordField: FC<PasswordFieldProps> = ({ form }) => {
+export const PasswordField: FC<PasswordFieldProps> = ({ form, register }) => {
   const { isOpen, onToggle } = useDisclosure()
-
-  const onClickReveal = () => {
-    onToggle()
-  }
 
   return (
     <FormControl>
@@ -30,7 +29,7 @@ export const PasswordField: FC<PasswordFieldProps> = ({ form }) => {
             variant="text"
             aria-label={isOpen ? 'Mask password' : 'Reveal password'}
             icon={isOpen ? <HiEyeOff /> : <HiEye />}
-            onClick={onClickReveal}
+            onClick={() => onToggle()}
             color={'#2883CC'}
           />
         </InputRightElement>
@@ -38,7 +37,7 @@ export const PasswordField: FC<PasswordFieldProps> = ({ form }) => {
           id={form === 'login' ? 'loginPass' : 'regPass'}
           type={isOpen ? 'text' : 'password'}
           autoComplete="current-password"
-          required
+          {...register('password', { required: 'Password is required!' })}
         />
       </InputGroup>
     </FormControl>

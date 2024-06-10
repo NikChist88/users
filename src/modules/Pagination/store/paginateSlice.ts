@@ -12,15 +12,15 @@ const paginateSlice = createSlice({
   name: 'paginate',
   initialState,
   reducers: {
-    setCurrentPageAC(state, action: PayloadAction<number>) {
+    setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload
     },
   },
   selectors: {
-    selectCurrentPage: (state) => state.currentPage,
+    сurrentPage: (state) => state.currentPage,
   },
 })
 
-export const { setCurrentPageAC } = paginateSlice.actions
-export const { selectCurrentPage } = paginateSlice.selectors
+export const { setCurrentPage } = paginateSlice.actions
+export const { сurrentPage } = paginateSlice.selectors
 export const paginateReducer = paginateSlice.reducer

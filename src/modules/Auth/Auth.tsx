@@ -10,8 +10,11 @@ import {
   TabPanels,
   Tabs,
 } from '@chakra-ui/react'
+import { useAuth } from './hooks/useAuth'
 
 export const Auth = () => {
+  const { onLoginSubmit, onRegisterSubmit, isLoading } = useAuth()
+
   return (
     <Container
       maxW="lg"
@@ -46,10 +49,13 @@ export const Auth = () => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <LoginForm />
+                  <LoginForm
+                    onSubmit={onLoginSubmit}
+                    isLoading={isLoading}
+                  />
                 </TabPanel>
                 <TabPanel>
-                  <RegisterForm />
+                  <RegisterForm onSubmit={onRegisterSubmit} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

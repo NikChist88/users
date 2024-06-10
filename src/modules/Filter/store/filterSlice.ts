@@ -27,14 +27,13 @@ const filtersSlice = createSlice({
     },
   },
   selectors: {
-    selectSearchQuery: (state) => state.searchQuery,
-    selectRoleFilter: (state) => state.roleFilter,
-    selectLimitFilter: (state) => state.limitFilter,
+    searchQuery: (state) => state.searchQuery,
+    roleFilter: (state) => state.roleFilter,
+    limitFilter: (state) => state.limitFilter,
   },
 })
 
 export const { setSearchQuery, setRoleFilter, setLimitFilter } =
   filtersSlice.actions
-export const { selectSearchQuery, selectRoleFilter, selectLimitFilter } =
-  filtersSlice.selectors
+export const { searchQuery, roleFilter, limitFilter } = filtersSlice.selectors
 export const filtersReducer = filtersSlice.reducer

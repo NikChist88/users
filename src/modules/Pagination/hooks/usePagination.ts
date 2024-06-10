@@ -1,20 +1,20 @@
-import { setCurrentPageAC, selectCurrentPage } from '../store/paginateSlice'
+import { setCurrentPage, сurrentPage } from '../store/paginateSlice'
 import { useAppDispatch, useAppSelector } from '@/store'
 
 export const usePagination = () => {
   const dispatch = useAppDispatch()
-  const currentPage = useAppSelector(selectCurrentPage)
+  const page = useAppSelector(сurrentPage)
 
   const handlePrevPage = () => {
-    dispatch(setCurrentPageAC(currentPage - 1))
+    dispatch(setCurrentPage(page - 1))
   }
 
   const handleNextPage = () => {
-    dispatch(setCurrentPageAC(currentPage + 1))
+    dispatch(setCurrentPage(page + 1))
   }
 
   return {
-    currentPage,
+    page,
     handlePrevPage,
     handleNextPage,
   }

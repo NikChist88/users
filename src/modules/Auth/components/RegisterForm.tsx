@@ -1,20 +1,28 @@
-import { useRegisterForm } from '../hooks/useRegisterForm'
+import { Auth } from '@/types'
 import {
+  Box,
   Stack,
   FormControl,
   FormLabel,
   Input,
   Button,
-  IconButton,
-  InputGroup,
-  InputRightElement,
-  useDisclosure,
 } from '@chakra-ui/react'
-import { HiEyeOff, HiEye } from 'react-icons/hi'
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { PasswordField } from './PasswordField'
 
-export const RegisterForm = () => {
-  const { register, handleSubmit, onRegisterSubmit } = useRegisterForm()
-  const { isOpen, onToggle } = useDisclosure()
+type RegisterFormProps = {
+  onSubmit: (values: Auth) => void
+}
+
+export const RegisterForm: FC<RegisterFormProps> = ({ onSubmit }) => {
+  const { register, handleSubmit, reset } = useForm<Auth>({
+    defaultValues: {
+      email: '',
+      name: '',
+      password: '',
+    },
+  })
 
   return (
     <Stack spacing="5">
@@ -36,36 +44,32 @@ export const RegisterForm = () => {
           {...register('name')}
         />
       </FormControl>
-      <FormControl>
-        <FormLabel htmlFor="password">Password:</FormLabel>
-        <InputGroup>
-          <InputRightElement>
-            <IconButton
-              variant="text"
-              aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-              icon={isOpen ? <HiEyeOff /> : <HiEye />}
-              onClick={() => onToggle()}
-              color={'#2883CC'}
-            />
-          </InputRightElement>
-          <Input
-            id="regPass"
-            type={isOpen ? 'text' : 'password'}
-            autoComplete="current-password"
-            required
-            {...register('password', { required: 'Password is required!' })}
-          />
-        </InputGroup>
-      </FormControl>
-      <Stack spacing="6">
+      <PasswordField register={register} />
+      <Box
+        display={'flex'}
+        gap={'15px'}
+      >
         <Button
+          width={'50%'}
           type="submit"
-          colorScheme="blue"
-          onClick={handleSubmit(onRegisterSubmit)}
+          backgroundColor={'#FFA42F'}
+          color={'#fff'}
+          _hover={{ backgroundColor: '#e0912a' }}
+          onClick={handleSubmit(onSubmit)}
         >
           Register
         </Button>
-      </Stack>
+        <Button
+          width={'50%'}
+          type="reset"
+          backgroundColor={'#00274A'}
+          color={'#fff'}
+          _hover={{ backgroundColor: '#013058' }}
+          onClick={() => reset()}
+        >
+          Reset
+        </Button>
+      </Box>
     </Stack>
   )
 }

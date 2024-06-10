@@ -1,5 +1,11 @@
 import { MainLayout } from '@/layouts/MainLayout'
-import { HomePage, AddUserPage, ErrorPage, AuthPage, EditUserPage } from '@/pages'
+import {
+  HomePage,
+  AddUserPage,
+  ErrorPage,
+  AuthPage,
+  EditUserPage,
+} from '@/pages'
 import {
   createBrowserRouter,
   createRoutesFromElements,

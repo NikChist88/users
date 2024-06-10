@@ -10,7 +10,7 @@ type PaginationProps = {
 
 export const Pagination: FC<PaginationProps> = memo(
   ({ totalItems, totalPages }) => {
-    const { currentPage, handleNextPage, handlePrevPage } = usePagination()
+    const { page, handleNextPage, handlePrevPage } = usePagination()
 
     return (
       <Box className="pagination">
@@ -31,7 +31,7 @@ export const Pagination: FC<PaginationProps> = memo(
         >
           <Button
             onClick={handlePrevPage}
-            isDisabled={currentPage === 0}
+            isDisabled={page === 0}
             size={'sm'}
             colorScheme="blue"
             fontSize={'12px'}
@@ -44,11 +44,11 @@ export const Pagination: FC<PaginationProps> = memo(
             justifyContent={'center'}
             color={'#000000'}
           >
-            {currentPage + 1} of {totalPages} pages
+            {page + 1} of {totalPages} pages
           </Text>
           <Button
             onClick={handleNextPage}
-            isDisabled={currentPage === totalPages - 1}
+            isDisabled={page === totalPages - 1}
             size={'sm'}
             colorScheme="blue"
             fontSize={'12px'}

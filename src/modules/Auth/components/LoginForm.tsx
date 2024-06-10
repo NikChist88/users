@@ -1,6 +1,9 @@
-import { HiEyeOff, HiEye } from 'react-icons/hi'
-import { useLoginForm } from '../hooks/useLoginForm'
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { PasswordField } from './PasswordField'
+import { Auth } from '@/types'
 import {
+  Box,
   Stack,
   FormControl,
   FormLabel,
@@ -8,15 +11,20 @@ import {
   HStack,
   Checkbox,
   Button,
-  IconButton,
-  InputGroup,
-  InputRightElement,
-  useDisclosure,
 } from '@chakra-ui/react'
 
-export const LoginForm = () => {
-  const { register, handleSubmit, onLoginSubmit, isLoading } = useLoginForm()
-  const { isOpen, onToggle } = useDisclosure()
+type LoginFormProps = {
+  isLoading: boolean
+  onSubmit: (values: Auth) => void
+}
+
+export const LoginForm: FC<LoginFormProps> = ({ isLoading, onSubmit }) => {
+  const { register, handleSubmit, reset } = useForm<Auth>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
 
   return (
     <Stack spacing="5">
@@ -29,34 +37,12 @@ export const LoginForm = () => {
           {...register('email', { required: 'Title is required!' })}
         />
       </FormControl>
-      <FormControl>
-        <FormLabel htmlFor="password">Password:</FormLabel>
-        <InputGroup>
-          <InputRightElement>
-            <IconButton
-              variant="text"
-              aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-              icon={isOpen ? <HiEyeOff /> : <HiEye />}
-              onClick={() => onToggle()}
-              color={'#2883CC'}
-            />
-          </InputRightElement>
-          <Input
-            id="loginPass"
-            type={isOpen ? 'text' : 'password'}
-            autoComplete="current-password"
-            required
-            {...register('password', { required: 'Password is required!' })}
-          />
-        </InputGroup>
-      </FormControl>
+      <PasswordField
+        form={'login'}
+        register={register}
+      />
       <HStack justify="space-between">
-        <Checkbox
-          colorScheme="blue"
-          {...register('rememberMe')}
-        >
-          Remember me
-        </Checkbox>
+        <Checkbox colorScheme="blue">Remember me</Checkbox>
         <Button
           variant="text"
           size="sm"
@@ -64,16 +50,32 @@ export const LoginForm = () => {
           Forgot password?
         </Button>
       </HStack>
-      <Stack spacing="6">
+      <Box
+        display={'flex'}
+        gap={'15px'}
+      >
         <Button
+          width={'50%'}
           type="submit"
-          colorScheme="blue"
-          onClick={handleSubmit(onLoginSubmit)}
+          backgroundColor={'#FFA42F'}
+          color={'#fff'}
+          _hover={{ backgroundColor: '#e0912a' }}
+          onClick={handleSubmit(onSubmit)}
           isLoading={isLoading}
         >
           Login
         </Button>
-      </Stack>
+        <Button
+          width={'50%'}
+          type="reset"
+          backgroundColor={'#00274A'}
+          color={'#fff'}
+          _hover={{ backgroundColor: '#013058' }}
+          onClick={() => reset()}
+        >
+          Reset
+        </Button>
+      </Box>
     </Stack>
   )
 }
