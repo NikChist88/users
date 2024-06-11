@@ -10,7 +10,7 @@ export const AddEmployeePage = () => {
 
   return (
     <div className="user-page">
-      <h2>Add New User</h2>
+      <h2>Add New Employee</h2>
       <EmployeeForm
         onSubmit={handleAddEmployee}
         user={user!}

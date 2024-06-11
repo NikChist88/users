@@ -1,4 +1,5 @@
 export { Auth } from './Auth'
 export { AuthProvider } from './AuthProvider'
+export { authApi } from './api/authApi'
 export * from './store/authSlice'
 export { listenerMiddleware } from './middleware/auth'

@@ -10,7 +10,7 @@ export const EditEmployeePage = () => {
 
   return (
     <div className="user-page">
-      <h2>Edit User</h2>
+      <h2>Edit Employee</h2>
       <EmployeeForm
         employee={data}
         onSubmit={handleUpdateEmployee}

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { employeesApi } from '@/api/employeesApi'
+import { employeesApi } from '../api/employeesApi'
 import { Employee } from '@/types'
 
 type InitialState = {

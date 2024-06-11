@@ -5,7 +5,7 @@ import {
   useAddEmployeeMutation,
   useUpdateEmployeeMutation,
   useDeleteEmployeeMutation,
-} from '@/api/employeesApi'
+} from '../api/employeesApi'
 import { useNavigate, useParams } from 'react-router-dom'
 import { SubmitHandler } from 'react-hook-form'
 

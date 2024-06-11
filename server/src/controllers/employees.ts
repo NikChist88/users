@@ -50,7 +50,6 @@ export const createEmployee = async (req: Request, res: Response) => {
       res.status(400).json({message: 'User of employees not found!'})
     }
   } catch (err) {
-    console.log(err)
     res.status(500).json({ message: 'Failed to create employee!' })
   }
 }

@@ -21,7 +21,7 @@ export const Auth = () => {
       py={{ base: '12', md: '24' }}
       px={{ base: '0', sm: '8' }}
     >
-      <Stack spacing="4">
+      <Stack spacing="6">
         <Stack spacing="4">
           <Logo />
           <Heading

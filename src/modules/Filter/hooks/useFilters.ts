@@ -1,15 +1,14 @@
 import { useAppSelector } from '@/store'
-import { useGetAllEmployeesQuery } from '@/api/employeesApi'
 import * as select from '../store/filterSlice'
 import { searchByName } from '../helpers/searchByName'
 import { filterByRole } from '../helpers/filterByRole'
+import { Employee } from '@/types'
 
-export const useFilters = () => {
+export const useFilters = (data: Employee[]) => {
   const limitFilter = useAppSelector(select.limitFilter)
   const roleFilter = useAppSelector(select.roleFilter)
   const searchQuery = useAppSelector(select.searchQuery)
-  const { data = [], isLoading } = useGetAllEmployeesQuery()
-
+  
   let filteredEmployees
 
   if (searchQuery) {
@@ -36,6 +35,5 @@ export const useFilters = () => {
     employees,
     totalPages,
     totalItems,
-    isLoading,
   }
 }

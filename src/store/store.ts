@@ -1,8 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { employeesApi } from '@/api/employeesApi'
-import { authApi } from '@/modules/Auth/api/authApi'
-import { authReducer, listenerMiddleware } from '@/modules/Auth'
-import { employeesReducer } from '@/modules/Employees'
+import { authApi, authReducer, listenerMiddleware } from '@/modules/Auth'
+import { employeesReducer, employeesApi } from '@/modules/Employees'
 import { filtersReducer } from '@/modules/Filter'
 import { paginateReducer } from '@/modules/Pagination'
 
