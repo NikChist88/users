@@ -47,17 +47,20 @@ const createEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const data = req.body;
         const user = yield prisma_client_1.prisma.user.findFirst({ where: { id: data.userId } });
-        if (!user)
-            return res.status(400).json({ message: 'User not found!' });
-        const employee = yield prisma_client_1.prisma.employees.create({
-            data: Object.assign(Object.assign({}, data), { userId: data.userId }),
-        });
-        res.status(201).json(employee);
-        return employee;
+        if (user) {
+            const employee = yield prisma_client_1.prisma.employees.create({
+                data: Object.assign(Object.assign({}, data), { userId: user.id }),
+            });
+            res.status(201).json(employee);
+            return employee;
+        }
+        else {
+            res.status(400).json({ message: 'User of employees not found!' });
+        }
     }
     catch (err) {
         console.log(err);
-        res.status(500).json({ message: 'Something went wrong!' });
+        res.status(500).json({ message: 'Failed to create employee!' });
     }
 });
 exports.createEmployee = createEmployee;
@@ -78,7 +81,7 @@ const deleteEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteEmployee = deleteEmployee;
-// update user
+// update employee
 const updateEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const employee = req.body;

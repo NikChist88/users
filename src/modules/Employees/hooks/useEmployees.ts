@@ -25,12 +25,11 @@ export const useEmployees = (employee?: Employee) => {
         ...data,
         ...submitData,
       }
-
       await updateEmployee(updatedEmployee).unwrap()
       toast.success('Employee data updated!')
       navigate('/')
     } catch {
-      toast.error('Some error occured!')
+      toast.error('Failed to update employee!!')
     }
   }
 
@@ -42,7 +41,7 @@ export const useEmployees = (employee?: Employee) => {
       toast.success('New Employee created!')
       navigate('/')
     } catch {
-      toast.error('Some error occured!')
+      toast.error('Failed to create employee!')
     }
   }
 
@@ -51,8 +50,8 @@ export const useEmployees = (employee?: Employee) => {
       try {
         employee && (await deleteEmployee(employee?.id).unwrap())
         toast.success(`Employee ${employee?.name} delete successfully!`)
-      } catch (error) {
-        alert(error)
+      } catch {
+        toast.error('Employee not deleted!')
       }
     }
   }

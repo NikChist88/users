@@ -9,33 +9,19 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { Employee } from '@/types'
+import { Employee, Response } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
-
-const roles: string[] = [
-  'Subcontractor',
-  'Engineer',
-  'Electrician',
-  'Supervisor',
-  'Estimator',
-  'Surveyor',
-  'Architect',
-  'Construction Manager',
-  'Construction Expeditor',
-  'Project Manager',
-  'Construction Worker',
-  'Construction Foreman',
-]
+import { roles } from '../constans/roles'
 
 type EmployeeFormProps = {
   employee?: Employee
-  userId?: string
+  user?: Response
   onSubmit: (values: Employee) => void
 }
 
 export const EmployeeForm: FC<EmployeeFormProps> = ({
   employee,
-  userId,
+  user,
   onSubmit,
 }) => {
   const { register, handleSubmit, reset } = useForm({
@@ -46,7 +32,7 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({
       role: employee?.role || '',
       company: employee?.company || '',
       country: employee?.country || '',
-      userId: employee?.userId || userId!,
+      userId: employee?.userId || user?.id,
     },
   })
 

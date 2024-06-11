@@ -5,7 +5,7 @@ export type Employee = {
   role: string
   company: string
   country: string
-  userId: User['id']
+  userId?: string
 }
 
 export type User = {
@@ -22,9 +22,4 @@ export type Auth = {
   name?: string
 }
 
-export type Response = {
-  id: string
-  email: string
-  name: string
-  token: string
-}
+export type Response = User & { token: string }

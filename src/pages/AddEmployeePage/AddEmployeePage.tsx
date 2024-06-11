@@ -13,7 +13,7 @@ export const AddEmployeePage = () => {
       <h2>Add New User</h2>
       <EmployeeForm
         onSubmit={handleAddEmployee}
-        userId={user?.id}
+        user={user!}
       />
     </div>
   )

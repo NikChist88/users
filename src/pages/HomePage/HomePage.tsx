@@ -5,11 +5,13 @@ import { Pagination, usePagination } from '@/modules/Pagination'
 import { Employees } from '@/modules/Employees'
 import { selectUser } from '@/modules/Auth'
 import { useAppSelector } from '@/store'
+import { Spinner } from '@/ui/Spinner'
 
 export const HomePage = () => {
-  const { employees, totalItems, totalPages } = useFilters()
+  const { isLoading, employees, totalItems, totalPages } = useFilters()
   const { page } = usePagination()
   const user = useAppSelector(selectUser)
+  const userEmployees = employees[page]?.filter((e) => e.userId === user!.id)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -18,13 +20,12 @@ export const HomePage = () => {
     }
   }, [user, navigate])
 
+  if (isLoading) return <Spinner />
+
   return (
     <>
       <Filters />
-      <Employees
-        employees={employees}
-        currentPage={page}
-      />
+      <Employees employees={userEmployees} />
       <Pagination
         totalItems={totalItems}
         totalPages={totalPages}

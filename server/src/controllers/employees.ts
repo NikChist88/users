@@ -37,20 +37,21 @@ export const createEmployee = async (req: Request, res: Response) => {
     const data: Employees = req.body
     const user = await prisma.user.findFirst({ where: { id: data.userId } })
 
-    if (!user) return res.status(400).json({ message: 'User not found!' })
-
-    const employee = await prisma.employees.create({
-      data: {
-        ...data,
-        userId: data.userId,
-      },
-    })
-
-    res.status(201).json(employee)
-    return employee
+    if (user) {
+      const employee = await prisma.employees.create({
+        data: {
+          ...data,
+          userId: user.id,
+        },
+      })
+      res.status(201).json(employee)
+      return employee
+    } else {
+      res.status(400).json({message: 'User of employees not found!'})
+    }
   } catch (err) {
     console.log(err)
-    res.status(500).json({ message: 'Something went wrong!' })
+    res.status(500).json({ message: 'Failed to create employee!' })
   }
 }
 
@@ -70,7 +71,7 @@ export const deleteEmployee = async (req: Request, res: Response) => {
   }
 }
 
-// update user
+// update employee
 export const updateEmployee = async (req: Request, res: Response) => {
   try {
     const employee: Employees = req.body

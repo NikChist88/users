@@ -8,7 +8,7 @@ export const useFilters = () => {
   const limitFilter = useAppSelector(select.limitFilter)
   const roleFilter = useAppSelector(select.roleFilter)
   const searchQuery = useAppSelector(select.searchQuery)
-  const { data = [] } = useGetAllEmployeesQuery()
+  const { data = [], isLoading } = useGetAllEmployeesQuery()
 
   let filteredEmployees
 
@@ -36,5 +36,6 @@ export const useFilters = () => {
     employees,
     totalPages,
     totalItems,
+    isLoading,
   }
 }
