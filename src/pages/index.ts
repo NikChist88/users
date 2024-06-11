@@ -1,5 +1,5 @@
 export { HomePage } from './HomePage/HomePage'
 export { AuthPage } from './AuthPage'
-export { AddUserPage } from './AddUserPage/AddUserPage'
-export { EditUserPage } from './EditUserPage/EditUserPage'
+export { AddEmployeePage } from './AddEmployeePage/AddEmployeePage'
+export { EditEmployeePage } from './EditEmployeePage/EditEmployeePage'
 export { ErrorPage } from './ErrorPage'

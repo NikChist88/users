@@ -37,7 +37,7 @@ const PORT = process.env.PORT;
 exports.app.use(express_1.default.json());
 exports.app.use(express_1.default.urlencoded({ extended: false }));
 exports.app.use((0, cors_1.default)());
-exports.app.use('/users', routes_1.usersRouter);
+exports.app.use('/employees', routes_1.employeesRouter);
 exports.app.use('/auth', routes_1.authRouter);
 // listening port
 exports.app.listen(PORT, () => {

@@ -1,7 +1,7 @@
-import { User } from "@/types"
+import { Employee } from "@/types"
 
-export const searchByName = (data: User[], name: string) => {
-  return data.filter((user) =>
-    user.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+export const searchByName = (data: Employee[], name: string) => {
+  return data.filter((employee) =>
+    employee.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
   )
 }

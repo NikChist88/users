@@ -1,19 +1,19 @@
 import { FC, memo } from 'react'
 import { Tr, Td, Box, Text, IconButton } from '@chakra-ui/react'
 import { RiDeleteBinLine } from 'react-icons/ri'
-import { useUsers } from '../hooks/useUsers'
-import { User } from '@/types'
+import { useEmployees } from '../hooks/useEmployees'
+import { Employee } from '@/types'
 import { getInitials } from '../helpers/getInitials'
 import { FaRegEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-type UserItemProps = {
-  user: User
+type EmployeeItemProps = {
+  employee: Employee
 }
 
-export const UserItem: FC<UserItemProps> = memo(({ user }) => {
-  const { handleDeleteUser } = useUsers(user)
-  const initials = getInitials(user.name)
+export const EmployeeItem: FC<EmployeeItemProps> = memo(({ employee }) => {
+  const { handleDeleteEmployee } = useEmployees(employee)
+  const initials = getInitials(employee.name)
 
   return (
     <Tr>
@@ -39,24 +39,24 @@ export const UserItem: FC<UserItemProps> = memo(({ user }) => {
             display={'flex'}
             flexDirection={'column'}
           >
-            <Text>{user.name}</Text>
-            <Text fontSize={'xs'}>{user.email}</Text>
+            <Text>{employee.name}</Text>
+            <Text fontSize={'xs'}>{employee.email}</Text>
           </Box>
         </Box>
       </Td>
-      <Td>{user.email}</Td>
-      <Td>{user.role}</Td>
-      <Td>{user.company}</Td>
-      <Td>{user.country}</Td>
+      <Td>{employee.email}</Td>
+      <Td>{employee.role}</Td>
+      <Td>{employee.company}</Td>
+      <Td>{employee.country}</Td>
       <Td>
         <Box
           display={'flex'}
           gap={'0 10px'}
         >
-          <Link to={`/edit/${user.id}`}>
+          <Link to={`/edit/${employee.id}`}>
             <IconButton
               size={'xs'}
-              title="Edit User"
+              title="Edit Employee"
               aria-label="edit"
               backgroundColor={'transparent'}
               icon={
@@ -70,7 +70,7 @@ export const UserItem: FC<UserItemProps> = memo(({ user }) => {
           </Link>
           <IconButton
             aria-label="delete"
-            title="Delete User"
+            title="Delete Employee"
             size={'xs'}
             backgroundColor={'transparent'}
             icon={
@@ -78,7 +78,7 @@ export const UserItem: FC<UserItemProps> = memo(({ user }) => {
                 size={'16px'}
                 cursor={'pointer'}
                 color="#E21F0B"
-                onClick={handleDeleteUser}
+                onClick={handleDeleteEmployee}
               />
             }
           />

@@ -61,6 +61,7 @@ export const register = async (req: Request, res: Response) => {
 
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
+    const secret = process.env.JWT_SECRET
     const user = await prisma.user.create({
       data: {
         email,
@@ -68,7 +69,6 @@ export const register = async (req: Request, res: Response) => {
         password: hashedPassword,
       },
     })
-    const secret = process.env.JWT_SECRET
 
     if (user && secret) {
       res.status(201).json({

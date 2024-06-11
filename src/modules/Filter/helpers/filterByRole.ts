@@ -1,5 +1,5 @@
-import { User } from "@/types"
+import { Employee } from "@/types"
 
-export const filterByRole = (data: User[], role: string) => {
-  return data.filter((user) => user.role === role)
+export const filterByRole = (data: Employee[], role: string) => {
+  return data.filter((employee) => employee.role === role)
 }

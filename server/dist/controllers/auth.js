@@ -66,6 +66,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+        const secret = process.env.JWT_SECRET;
         const user = yield prisma_client_1.prisma.user.create({
             data: {
                 email,
@@ -73,7 +74,6 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 password: hashedPassword,
             },
         });
-        const secret = process.env.JWT_SECRET;
         if (user && secret) {
             res.status(201).json({
                 id: user.id,

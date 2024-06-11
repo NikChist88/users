@@ -23,7 +23,7 @@ export const useAuth = () => {
       await registerUser(registerData).unwrap()
       navigate('/')
     } catch {
-      toast.error('Some error occurred!')
+      toast.error('Failed to create user!')
     }
   }
 

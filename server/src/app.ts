@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { usersRouter, authRouter } from './routes'
+import { employeesRouter, authRouter } from './routes'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 
-app.use('/users', usersRouter)
+app.use('/employees', employeesRouter)
 app.use('/auth', authRouter)
 
 // listening port

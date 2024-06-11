@@ -9,7 +9,8 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { User } from '@/types'
+import { Employee } from '@/types'
+import { v4 as uuidv4 } from 'uuid'
 
 const roles: string[] = [
   'Subcontractor',
@@ -26,30 +27,36 @@ const roles: string[] = [
   'Construction Foreman',
 ]
 
-type UserFormProps = {
-  user?: User
-  onSubmit: (values: User) => void
+type EmployeeFormProps = {
+  employee?: Employee
+  userId?: string
+  onSubmit: (values: Employee) => void
 }
 
-export const UserForm: FC<UserFormProps> = ({ user, onSubmit }) => {
+export const EmployeeForm: FC<EmployeeFormProps> = ({
+  employee,
+  userId,
+  onSubmit,
+}) => {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-      id: user?.id || '',
-      name: user?.name || '',
-      email: user?.email || '',
-      role: user?.role || '',
-      company: user?.company || '',
-      country: user?.country || '',
+      id: employee?.id || uuidv4(),
+      name: employee?.name || '',
+      email: employee?.email || '',
+      role: employee?.role || '',
+      company: employee?.company || '',
+      country: employee?.country || '',
+      userId: employee?.userId || userId!,
     },
   })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
-        <FormLabel>User name:</FormLabel>
+        <FormLabel>Employee name:</FormLabel>
         <Input
-          defaultValue={user?.name || ''}
-          placeholder="User name..."
+          defaultValue={employee?.name || ''}
+          placeholder="Employee name..."
           bgColor={'#EEEFF1'}
           {...register('name')}
         />
@@ -57,7 +64,7 @@ export const UserForm: FC<UserFormProps> = ({ user, onSubmit }) => {
       <FormControl mt={4}>
         <FormLabel>Email:</FormLabel>
         <Input
-          defaultValue={user?.email || ''}
+          defaultValue={employee?.email || ''}
           type="email"
           placeholder="Email..."
           bgColor={'#EEEFF1'}
@@ -67,7 +74,7 @@ export const UserForm: FC<UserFormProps> = ({ user, onSubmit }) => {
       <FormControl mt={4}>
         <FormLabel>Role:</FormLabel>
         <Select
-          placeholder={user?.role || 'Select role...'}
+          placeholder={employee?.role || 'Select role...'}
           bgColor={'#EEEFF1'}
           {...register('role')}
         >
@@ -84,7 +91,7 @@ export const UserForm: FC<UserFormProps> = ({ user, onSubmit }) => {
       <FormControl mt={4}>
         <FormLabel>Company:</FormLabel>
         <Input
-          defaultValue={user?.company}
+          defaultValue={employee?.company}
           placeholder="Company..."
           bgColor={'#EEEFF1'}
           {...register('company')}
@@ -93,7 +100,7 @@ export const UserForm: FC<UserFormProps> = ({ user, onSubmit }) => {
       <FormControl mt={4}>
         <FormLabel>Country:</FormLabel>
         <Input
-          defaultValue={user?.country}
+          defaultValue={employee?.country}
           placeholder="Country..."
           bgColor={'#EEEFF1'}
           {...register('country')}

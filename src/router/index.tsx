@@ -1,10 +1,10 @@
 import { MainLayout } from '@/layouts/MainLayout'
 import {
   HomePage,
-  AddUserPage,
+  AddEmployeePage,
   ErrorPage,
   AuthPage,
-  EditUserPage,
+  EditEmployeePage,
 } from '@/pages'
 import {
   createBrowserRouter,
@@ -25,11 +25,11 @@ export const router = createBrowserRouter(
         />
         <Route
           path="add"
-          element={<AddUserPage />}
+          element={<AddEmployeePage />}
         />
         <Route
           path="edit/:id"
-          element={<EditUserPage />}
+          element={<EditEmployeePage />}
         />
         <Route
           path="*"
