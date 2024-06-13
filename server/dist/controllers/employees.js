@@ -16,7 +16,6 @@ const getAllEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         const employees = yield prisma_client_1.prisma.employees.findMany();
         res.status(200).json(employees);
-        return employees;
     }
     catch (_a) {
         res.status(500).json({ message: 'Something went wrong!' });
@@ -34,7 +33,6 @@ const getEmployeeById = (req, res) => __awaiter(void 0, void 0, void 0, function
         }
         else {
             res.status(200).json(employee);
-            return employee;
         }
     }
     catch (_b) {
@@ -46,19 +44,12 @@ exports.getEmployeeById = getEmployeeById;
 const createEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
-        const user = yield prisma_client_1.prisma.user.findFirst({ where: { id: data.userId } });
-        if (user) {
-            const employee = yield prisma_client_1.prisma.employees.create({
-                data: Object.assign(Object.assign({}, data), { userId: user.id }),
-            });
-            res.status(201).json(employee);
-            return employee;
-        }
-        else {
-            res.status(400).json({ message: 'User of employees not found!' });
-        }
+        const employee = yield prisma_client_1.prisma.employees.create({
+            data: Object.assign(Object.assign({}, data), { userId: data.userId }),
+        });
+        res.status(201).json(employee);
     }
-    catch (err) {
+    catch (_c) {
         res.status(500).json({ message: 'Failed to create employee!' });
     }
 });
@@ -75,7 +66,7 @@ const deleteEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function*
             res.status(200).json({ message: 'Employee deleted!' });
         }
     }
-    catch (_c) {
+    catch (_d) {
         res.status(500).json({ message: 'Something went wrong!' });
     }
 });
@@ -95,7 +86,7 @@ const updateEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function*
             res.status(404).json({ message: 'Employee not found!' });
         }
     }
-    catch (_d) {
+    catch (_e) {
         res.status(500).json({ message: 'Something went wrong!' });
     }
 });

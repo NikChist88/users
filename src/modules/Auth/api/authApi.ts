@@ -5,8 +5,9 @@ import { AppRootState } from '@/store'
 export const authApi = createApi({
   reducerPath: 'authApi',
   tagTypes: ['Auth'],
+  refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3003',
+    baseUrl: 'http://localhost:3003/',
     prepareHeaders: (headers, { getState }) => {
       const token =
         (getState() as AppRootState).auth.user?.token ||

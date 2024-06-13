@@ -12,12 +12,12 @@ import {
 import { UseFormRegister } from 'react-hook-form'
 import { Auth } from '@/types'
 
-type PasswordFieldProps = {
+type PasswordField = {
   form?: string
   register: UseFormRegister<Auth>
 }
 
-export const PasswordField: FC<PasswordFieldProps> = ({ form, register }) => {
+export const PasswordField: FC<PasswordField> = ({ form, register }) => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (

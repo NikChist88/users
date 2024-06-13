@@ -2,13 +2,13 @@ import { useAppSelector } from '@/store'
 import * as select from '../store/filterSlice'
 import { searchByName } from '../helpers/searchByName'
 import { filterByRole } from '../helpers/filterByRole'
-import { Employee } from '@/types'
+import { Employees } from '@prisma/index'
 
-export const useFilters = (data: Employee[]) => {
+export const useFilters = (data: Employees[]) => {
   const limitFilter = useAppSelector(select.limitFilter)
   const roleFilter = useAppSelector(select.roleFilter)
   const searchQuery = useAppSelector(select.searchQuery)
-  
+
   let filteredEmployees
 
   if (searchQuery) {
@@ -26,14 +26,8 @@ export const useFilters = (data: Employee[]) => {
     filteredEmployees.slice(pageIndex, pageIndex + limitFilter)
   )
 
-  const totalItems = Object.values(employees).reduce(
-    (acc, value) => acc + value.length,
-    0
-  )
-
   return {
     employees,
     totalPages,
-    totalItems,
   }
 }

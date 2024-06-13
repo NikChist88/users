@@ -1,10 +1,13 @@
 import { EmployeeForm } from '@/modules/Employees/components'
-import { useEmployees } from '@/modules/Employees'
+import { useEmployees, useGetEmployeeByIdQuery } from '@/modules/Employees'
 import { Spinner } from '@/ui/Spinner'
 import './styles.css'
+import { useParams } from 'react-router-dom'
 
 export const EditEmployeePage = () => {
-  const { data, isLoading, handleUpdateEmployee } = useEmployees()
+  const { id } = useParams<{ id: string }>()
+  const { data, isLoading } = useGetEmployeeByIdQuery(id || '')
+  const { handleUpdateEmployee } = useEmployees(data)
 
   if (isLoading) return <Spinner />
 

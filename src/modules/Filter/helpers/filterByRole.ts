@@ -1,5 +1,5 @@
-import { Employee } from "@/types"
+import { Employees } from '@prisma/index'
 
-export const filterByRole = (data: Employee[], role: string) => {
+export const filterByRole = (data: Employees[], role: string) => {
   return data.filter((employee) => employee.role === role)
 }

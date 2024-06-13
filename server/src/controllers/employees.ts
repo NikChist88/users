@@ -7,7 +7,6 @@ export const getAllEmployees = async (req: Request, res: Response) => {
   try {
     const employees = await prisma.employees.findMany()
     res.status(200).json(employees)
-    return employees
   } catch {
     res.status(500).json({ message: 'Something went wrong!' })
   }
@@ -24,7 +23,6 @@ export const getEmployeeById = async (req: Request, res: Response) => {
       res.status(404).json({ message: 'Employee not found!' })
     } else {
       res.status(200).json(employee)
-      return employee
     }
   } catch {
     res.status(500).json({ message: 'Something went wrong!' })
@@ -35,21 +33,16 @@ export const getEmployeeById = async (req: Request, res: Response) => {
 export const createEmployee = async (req: Request, res: Response) => {
   try {
     const data: Employees = req.body
-    const user = await prisma.user.findFirst({ where: { id: data.userId } })
 
-    if (user) {
-      const employee = await prisma.employees.create({
-        data: {
-          ...data,
-          userId: user.id,
-        },
-      })
-      res.status(201).json(employee)
-      return employee
-    } else {
-      res.status(400).json({message: 'User of employees not found!'})
-    }
-  } catch (err) {
+    const employee = await prisma.employees.create({
+      data: {
+        ...data,
+        userId: data.userId,
+      },
+    })
+
+    res.status(201).json(employee)
+  } catch {
     res.status(500).json({ message: 'Failed to create employee!' })
   }
 }

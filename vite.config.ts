@@ -13,6 +13,10 @@ export default defineConfig({
       '@helpers': path.resolve(__dirname, './src/helpers'),
       '@store': path.resolve(__dirname, './src/store'),
       '@types': path.resolve(__dirname, './src/types'),
+      '@prisma': path.resolve(
+        __dirname,
+        './server/node_modules/prisma/prisma-client/index'
+      ),
     },
   },
   plugins: [react()],

@@ -1,10 +1,16 @@
 export type Employee = {
   id: string
-  name: string
+  firstName: string
+  lastName: string
+  gender: string
+  dateOfBirth: string
   email: string
+  phone: string
+  address: string
   role: string
   company: string
   country: string
+  aboutMe: string
   userId?: string
 }
 
@@ -23,3 +29,17 @@ export type Auth = {
 }
 
 export type Response = User & { token: string }
+
+export type EmployeeFormValues =
+  | 'id'
+  | 'firstName'
+  | 'lastName'
+  | 'gender'
+  | 'dateOfBirth'
+  | 'email'
+  | 'phone'
+  | 'role'
+  | 'address'
+  | 'company'
+  | 'country'
+  | 'aboutMe'

@@ -1,4 +1,4 @@
-export { Employees } from './Employees'
+export { EmployeesTable } from './EmployeesTable'
 export { useEmployees } from './hooks/useEmployees'
-export { employeesApi } from './api/employeesApi'
+export * from './api/employeesApi'
 export * from './store/employeesSlice'

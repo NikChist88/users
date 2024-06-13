@@ -13,7 +13,8 @@
       "@components/*": ["src/components/*"],
       "@helpers/*": ["src/helpers/*"],
       "@store/*": ["src/store/*"],
-      "@types/*": ["src/types/*"]
+      "@types/*": ["src/types/*"],
+      "@prisma/*": ["./server/node_modules/prisma/prisma-client/index"]
     },
 
     /* Bundler mode */

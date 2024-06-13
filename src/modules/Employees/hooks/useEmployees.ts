@@ -1,40 +1,21 @@
-import { Employee } from '@/types'
+import { Employees } from '@prisma/index'
 import { toast } from 'react-toastify'
 import {
-  useGetEmployeeByIdQuery,
   useAddEmployeeMutation,
   useUpdateEmployeeMutation,
   useDeleteEmployeeMutation,
 } from '../api/employeesApi'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { SubmitHandler } from 'react-hook-form'
 
-export const useEmployees = (employee?: Employee) => {
-  const { id } = useParams<{ id: string }>()
-  const { data, isLoading } = useGetEmployeeByIdQuery(id || '')
+export const useEmployees = (employee?: Employees) => {
   const [addEmployee] = useAddEmployeeMutation()
   const [updateEmployee] = useUpdateEmployeeMutation()
   const [deleteEmployee] = useDeleteEmployeeMutation()
   const navigate = useNavigate()
 
-  const handleUpdateEmployee: SubmitHandler<Employee> = async (
-    submitData: Employee
-  ) => {
-    try {
-      const updatedEmployee = {
-        ...data,
-        ...submitData,
-      }
-      await updateEmployee(updatedEmployee).unwrap()
-      toast.success('Employee data updated!')
-      navigate('/')
-    } catch {
-      toast.error('Failed to update employee!!')
-    }
-  }
-
-  const handleAddEmployee: SubmitHandler<Employee> = async (
-    submitData: Employee
+  const handleAddEmployee: SubmitHandler<Employees> = async (
+    submitData: Employees
   ) => {
     try {
       await addEmployee(submitData).unwrap()
@@ -45,22 +26,43 @@ export const useEmployees = (employee?: Employee) => {
     }
   }
 
-  const handleDeleteEmployee = async () => {
-    if (window.confirm(`Delete Employee ${employee?.name}?`)) {
-      try {
-        employee && (await deleteEmployee(employee?.id).unwrap())
-        toast.success(`Employee ${employee?.name} delete successfully!`)
-      } catch {
-        toast.error('Employee not deleted!')
+  const handleUpdateEmployee: SubmitHandler<Employees> = async (
+    submitData: Employees
+  ) => {
+    try {
+      const updatedEmployee = {
+        ...employee,
+        ...submitData,
       }
+      await updateEmployee(updatedEmployee).unwrap()
+      toast.success('Employee data updated!')
+      navigate('/')
+    } catch {
+      toast.error('Failed to update employee!!')
+    }
+  }
+
+  const handleDeleteEmployee = async () => {
+    try {
+      if (
+        window.confirm(
+          `Delete Employee ${employee?.firstName} ${employee?.lastName}?`
+        )
+      ) {
+        employee && (await deleteEmployee(employee?.id).unwrap())
+        toast.success(
+          `Employee ${employee?.firstName} ${employee?.lastName} delete successfully!`
+        )
+        navigate('/')
+      }
+    } catch {
+      toast.error('Employee not deleted!')
     }
   }
 
   return {
-    handleDeleteEmployee,
     handleAddEmployee,
     handleUpdateEmployee,
-    data,
-    isLoading,
+    handleDeleteEmployee,
   }
 }

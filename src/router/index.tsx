@@ -5,6 +5,7 @@ import {
   ErrorPage,
   AuthPage,
   EditEmployeePage,
+  EmployeePage,
 } from '@/pages'
 import {
   createBrowserRouter,
@@ -22,6 +23,10 @@ export const router = createBrowserRouter(
         <Route
           index
           element={<HomePage />}
+        />
+        <Route
+          path="employee"
+          element={<EmployeePage />}
         />
         <Route
           path="add"

@@ -6,125 +6,129 @@ import {
   Select,
   Button,
   Box,
+  Textarea,
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { Employee, Response } from '@/types'
+import { Employees } from '@prisma/index'
+import { roles } from '@/components/RolesSelect/constants/roles'
+import { Response } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
-import { roles } from '../constans/roles'
+import { fields } from '../constants/fields'
 
-type EmployeeFormProps = {
-  employee?: Employee
+type EmployeeForm = {
+  employee?: Employees
   user?: Response
-  onSubmit: (values: Employee) => void
+  onSubmit: (values: Employees) => void
 }
 
-export const EmployeeForm: FC<EmployeeFormProps> = ({
+export const EmployeeForm: FC<EmployeeForm> = ({
   employee,
   user,
   onSubmit,
 }) => {
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset } = useForm<Employees>({
     defaultValues: {
       id: employee?.id || uuidv4(),
-      name: employee?.name || '',
+      firstName: employee?.firstName || '',
+      lastName: employee?.lastName || '',
+      gender: employee?.gender || '',
+      dateOfBirth: employee?.dateOfBirth || '',
       email: employee?.email || '',
+      phone: employee?.phone || '',
       role: employee?.role || '',
+      address: employee?.address || '',
       company: employee?.company || '',
       country: employee?.country || '',
+      aboutMe: employee?.aboutMe || '',
       userId: employee?.userId || user?.id,
     },
   })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl>
-        <FormLabel>Employee name:</FormLabel>
-        <Input
-          defaultValue={employee?.name || ''}
-          placeholder="Employee name..."
-          bgColor={'#EEEFF1'}
-          {...register('name')}
-        />
-      </FormControl>
-      <FormControl mt={4}>
-        <FormLabel>Email:</FormLabel>
-        <Input
-          defaultValue={employee?.email || ''}
-          type="email"
-          placeholder="Email..."
-          bgColor={'#EEEFF1'}
-          {...register('email')}
-        />
-      </FormControl>
-      <FormControl mt={4}>
-        <FormLabel>Role:</FormLabel>
-        <Select
-          placeholder={employee?.role || 'Select role...'}
-          bgColor={'#EEEFF1'}
-          {...register('role')}
+      <Box
+        display={'flex'}
+        columnGap={'15px'}
+        flexWrap={'wrap'}
+      >
+        {fields.map((field) => (
+          <FormControl className="form-control">
+            <FormLabel>{field.label}:</FormLabel>
+            <Input
+              placeholder={`${field.label}...`}
+              {...register(`${field.register}`, {
+                required: true,
+                maxLength: 80,
+              })}
+            />
+          </FormControl>
+        ))}
+      </Box>
+      <Box
+        display={'flex'}
+        gap={'15px'}
+      >
+        <FormControl className="form-control">
+          <FormLabel>Gender:</FormLabel>
+          <Select
+            placeholder={employee?.gender || 'Select gender...'}
+            bgColor={'#EEEFF1'}
+            {...register('gender')}
+          >
+            <option value={'Male'}>Male</option>
+            <option value={'Female'}>Female</option>
+          </Select>
+        </FormControl>
+        <FormControl className="form-control">
+          <FormLabel>Role:</FormLabel>
+          <Select
+            placeholder={employee?.role || 'Select role...'}
+            bgColor={'#EEEFF1'}
+            {...register('role')}
+          >
+            {roles.map((role, key) => (
+              <option
+                key={key}
+                value={role}
+              >
+                {role}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl
+          width={'665px'}
+          height={'150px'}
+          mb={8}
         >
-          {roles.map((role, index) => (
-            <option
-              key={index}
-              value={role}
-            >
-              {role}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl mt={4}>
-        <FormLabel>Company:</FormLabel>
-        <Input
-          defaultValue={employee?.company}
-          placeholder="Company..."
-          bgColor={'#EEEFF1'}
-          {...register('company')}
-        />
-      </FormControl>
-      <FormControl mt={4}>
-        <FormLabel>Country:</FormLabel>
-        <Input
-          defaultValue={employee?.country}
-          placeholder="Country..."
-          bgColor={'#EEEFF1'}
-          {...register('country')}
-        />
-      </FormControl>
+          <FormLabel>About Me:</FormLabel>
+          <Textarea
+            resize={'none'}
+            height={'100%'}
+            bgColor={'#EEEFF1'}
+            {...register('aboutMe')}
+          />
+        </FormControl>
+      </Box>
       <Box
         display={'flex'}
         justifyContent={'space-between'}
         marginTop={'20px'}
       >
-        <Button
-          backgroundColor={'#00274A'}
-          _hover={{ backgroundColor: '#013058' }}
-          color={'#fff'}
-          onClick={() => reset()}
-        >
-          Reset Form
-        </Button>
         <div>
           <Button
-            backgroundColor={'#FFA42F'}
-            _hover={{ backgroundColor: '#e0912a' }}
-            color={'#fff'}
+            colorScheme="blue"
             mr={3}
             type="submit"
           >
             Save
           </Button>
           <Link to={'/'}>
-            <Button
-              backgroundColor={'#00274A'}
-              _hover={{ backgroundColor: '#013058' }}
-              color={'#fff'}
-            >
-              Cancel
-            </Button>
+            <Button>Cancel</Button>
           </Link>
         </div>
+        <Button onClick={() => reset()}>Reset Form</Button>
       </Box>
     </form>
   )

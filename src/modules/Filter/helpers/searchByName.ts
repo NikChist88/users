@@ -1,7 +1,7 @@
-import { Employee } from "@/types"
+import { Employees } from '@prisma/index'
 
-export const searchByName = (data: Employee[], name: string) => {
+export const searchByName = (data: Employees[], name: string) => {
   return data.filter((employee) =>
-    employee.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+    employee.firstName.toLocaleLowerCase().includes(name.toLocaleLowerCase())
   )
 }

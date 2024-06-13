@@ -1,7 +1,8 @@
 import { ChangeEvent } from 'react'
-import { Input, Box, Text } from '@chakra-ui/react'
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { searchQuery, setSearchQuery } from '../store/filterSlice'
+import { IoIosSearch } from 'react-icons/io'
 
 export const SearchBar = () => {
   const dispatch = useAppDispatch()
@@ -12,17 +13,15 @@ export const SearchBar = () => {
   }
 
   return (
-    <Box
-      width={'100%'}
+    <InputGroup
       display={'flex'}
       alignItems={'center'}
+      marginLeft={'auto'}
+      width={'450px'}
     >
-      <Text
-        fontSize={'14px'}
-        flex={'1 0 105px'}
-      >
-        Filter by name:
-      </Text>
+      <InputLeftElement pointerEvents="none">
+        <IoIosSearch size={18} />
+      </InputLeftElement>
       <Input
         backgroundColor={'#ffffff'}
         placeholder="Search user by name..."
@@ -30,6 +29,6 @@ export const SearchBar = () => {
         onChange={handleOnChange}
         height={'35px'}
       />
-    </Box>
+    </InputGroup>
   )
 }

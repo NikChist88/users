@@ -10,17 +10,17 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { EmployeeItem } from './components'
-import { Employee } from '@/types'
+import { Employees } from '@prisma/index'
 import { IoMdAdd } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
-import { tableHeaders } from './constans/tableHeaders'
+import { tableHeaders } from './constants/tableHeaders'
 import './styles.css'
 
-type EmployeesPropsType = {
-  employees: Employee[]
+type EmployeesTable = {
+  employees: Employees[]
 }
 
-export const Employees: FC<EmployeesPropsType> = memo(({ employees }) => {
+export const EmployeesTable: FC<EmployeesTable> = memo(({ employees }) => {
   const navigate = useNavigate()
 
   return (
@@ -31,14 +31,16 @@ export const Employees: FC<EmployeesPropsType> = memo(({ employees }) => {
         marginBottom={'15px'}
       >
         <Button
-          width={'100%'}
-          maxWidth={'150px'}
+          display={'flex'}
+          alignItems={'center'}
+          columnGap={'5px'}
+          width={'150px'}
           colorScheme="blue"
-          leftIcon={<IoMdAdd size={'18px'} />}
           height={'35px'}
           fontSize={'14px'}
           onClick={() => navigate('/add')}
         >
+          <IoMdAdd size={18} />
           Add Employee
         </Button>
       </Box>
@@ -59,7 +61,7 @@ export const Employees: FC<EmployeesPropsType> = memo(({ employees }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {employees.map((employee) => (
+          {employees?.map((employee) => (
             <EmployeeItem
               key={employee.id}
               employee={employee}
@@ -67,6 +69,7 @@ export const Employees: FC<EmployeesPropsType> = memo(({ employees }) => {
           ))}
         </Tbody>
       </Table>
+      <span>Total employees: {employees.length}</span>
     </TableContainer>
   )
 })

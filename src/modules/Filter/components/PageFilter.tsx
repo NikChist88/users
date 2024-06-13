@@ -15,16 +15,12 @@ export const PageFilter = () => {
     <Box
       display={'flex'}
       alignItems={'center'}
+      columnGap={'5px'}
       height={'35px'}
     >
-      <Text
-        flex={'1 0 110px'}
-        fontSize={'14px'}
-      >
-        Users per page:
-      </Text>
+      <Text fontSize={'14px'}>Show:</Text>
       <Select
-        width={'150px'}
+        width={'80px'}
         height={'35px'}
         defaultValue={limit}
         onChange={handleChangePageFilter}
