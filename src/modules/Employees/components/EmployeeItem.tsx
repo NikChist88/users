@@ -4,8 +4,8 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 import { useEmployees } from '../hooks/useEmployees'
 import { Employees } from '@prisma/index'
 import { getInitials } from '../helpers/getInitials'
-import { FaRegEdit } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { FaEye } from 'react-icons/fa'
 
 type EmployeeItem = {
   employee: Employees
@@ -45,14 +45,13 @@ export const EmployeeItem: FC<EmployeeItem> = memo(({ employee }) => {
         >
           <IconButton
             size={'xs'}
-            title="Edit Employee"
-            aria-label="edit"
-            backgroundColor={'transparent'}
-            onClick={() => navigate(`/edit/${employee.id}`)}
+            title="Employee Details"
+            aria-label="details"
+            bgColor={'transparent'}
+            onClick={() => navigate(`/employee/${employee.id}`)}
             icon={
-              <FaRegEdit
-                size={'16px'}
-                cursor={'pointer'}
+              <FaEye
+                size={'18px'}
                 color="#1C84CA"
               />
             }
@@ -61,13 +60,12 @@ export const EmployeeItem: FC<EmployeeItem> = memo(({ employee }) => {
             aria-label="delete"
             title="Delete Employee"
             size={'xs'}
-            backgroundColor={'transparent'}
+            bgColor={'transparent'}
+            onClick={handleDeleteEmployee}
             icon={
               <RiDeleteBinLine
                 size={'16px'}
-                cursor={'pointer'}
-                color="#E21F0B"
-                onClick={handleDeleteEmployee}
+                color="red"
               />
             }
           />

@@ -8,7 +8,7 @@ import {
   Box,
   Textarea,
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Employees } from '@prisma/index'
 import { roles } from '@/components/RolesSelect/constants/roles'
@@ -27,6 +27,7 @@ export const EmployeeForm: FC<EmployeeForm> = ({
   user,
   onSubmit,
 }) => {
+  const { pathname } = useLocation()
   const { register, handleSubmit, reset } = useForm<Employees>({
     defaultValues: {
       id: employee?.id || uuidv4(),
@@ -52,8 +53,11 @@ export const EmployeeForm: FC<EmployeeForm> = ({
         columnGap={'15px'}
         flexWrap={'wrap'}
       >
-        {fields.map((field) => (
-          <FormControl className="form-control">
+        {fields.map((field, key) => (
+          <FormControl
+            key={key}
+            className="form-control"
+          >
             <FormLabel>{field.label}:</FormLabel>
             <Input
               placeholder={`${field.label}...`}
@@ -124,8 +128,8 @@ export const EmployeeForm: FC<EmployeeForm> = ({
           >
             Save
           </Button>
-          <Link to={'/'}>
-            <Button>Cancel</Button>
+          <Link to={pathname === '/add' ? '/' : `/employee/${employee?.id}`}>
+            <Button>Back</Button>
           </Link>
         </div>
         <Button onClick={() => reset()}>Reset Form</Button>

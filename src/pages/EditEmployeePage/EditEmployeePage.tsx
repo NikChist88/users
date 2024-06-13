@@ -1,8 +1,8 @@
 import { EmployeeForm } from '@/modules/Employees/components'
 import { useEmployees, useGetEmployeeByIdQuery } from '@/modules/Employees'
 import { Spinner } from '@/ui/Spinner'
-import './styles.css'
 import { useParams } from 'react-router-dom'
+import './styles.css'
 
 export const EditEmployeePage = () => {
   const { id } = useParams<{ id: string }>()

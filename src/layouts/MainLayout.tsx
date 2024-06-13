@@ -1,6 +1,6 @@
+import { Container } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 import { HomePageHeader } from '@/pages/HomePage/components/HomePageHeader/HomePageHeader'
-import { Container } from '@chakra-ui/react'
 
 export const MainLayout = () => {
   return (

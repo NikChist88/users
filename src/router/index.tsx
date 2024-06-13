@@ -25,7 +25,7 @@ export const router = createBrowserRouter(
           element={<HomePage />}
         />
         <Route
-          path="employee"
+          path="employee/:id"
           element={<EmployeePage />}
         />
         <Route
