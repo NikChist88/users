@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "watch": "tsc -w",
-    "nodemon": "nodemon --inspect dist/app.js",
+    "server": "nodemon --inspect dist/app.js",
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "concurrently \"yarn run watch\" \"yarn run client\""
