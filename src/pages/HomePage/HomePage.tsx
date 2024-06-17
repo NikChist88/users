@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Filters, useFilters } from '@/modules/Filter'
-import { Pagination, usePagination } from '@/modules/Pagination'
 import { EmployeesTable, useGetAllEmployeesQuery } from '@/modules/Employees'
 import { selectUser } from '@/modules/Auth'
 import { useAppSelector } from '@/store'
@@ -10,9 +9,8 @@ import { Spinner } from '@/ui/Spinner'
 export const HomePage = () => {
   const { data = [], isLoading } = useGetAllEmployeesQuery()
   const user = useAppSelector(selectUser)
-  const { page } = usePagination()
-  const { employees, totalPages } = useFilters(data)
-  const userEmployees = employees[page]?.filter((e) => e.userId === user!.id)
+  const { filteredEmployees } = useFilters(data)
+  const userEmployees = filteredEmployees.filter((e) => e.userId === user!.id)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -27,7 +25,6 @@ export const HomePage = () => {
     <>
       <Filters />
       <EmployeesTable employees={userEmployees} />
-      <Pagination totalPages={totalPages} />
     </>
   )
 }

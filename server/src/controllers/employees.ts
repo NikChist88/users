@@ -1,7 +1,13 @@
 import { Request, Response } from 'express'
-import { employeesRepo } from '../repositories/employees.repo'
-import { RequestParams, RequestBody, RequestParamsAndBody } from '../types'
-import { MessageView } from '../views/employees.view'
+import { employeesRepo, employeesQueryRepo } from '../repositories'
+import { employeesService } from '../services/employees-service'
+import {
+  RequestParams,
+  RequestBody,
+  RequestParamsAndBody,
+  RequestQuery,
+} from '../types'
+import { MessageView } from '../views/employees'
 import { Employees } from '@prisma/client'
 
 /**
@@ -14,7 +20,7 @@ export const getAllEmployees = async (
   res: Response<Employees[] | MessageView>
 ) => {
   try {
-    const employees = await employeesRepo.findAll()
+    const employees = await employeesQueryRepo.findAll()
     employees
       ? res.status(200).json(employees)
       : res.status(404).json({ message: 'Employees not found!' })
@@ -24,19 +30,19 @@ export const getAllEmployees = async (
 }
 
 /**
- * @route GET /employees/:id
+ * @route GET /employees/employee
  * @desc Get employee by ID
  * @access Private
  */
 export const getEmployeeById = async (
-  req: RequestParams<{ id: string }>,
+  req: RequestQuery<{ id: string }>,
   res: Response<Employees | MessageView>
 ) => {
   try {
-    const employee = await employeesRepo.findById(req.params.id)
+    const employee = await employeesQueryRepo.findById(req.query.id)
     employee
       ? res.status(200).json(employee)
-      : res.status(404).json({ message: 'Employee not found!' })
+      : res.status(404).json({ message: 'Employees not found!' })
   } catch {
     res.status(500).json({ message: 'Internal Server Error!' })
   }
@@ -52,10 +58,12 @@ export const createEmployee = async (
   res: Response<Employees | MessageView>
 ) => {
   try {
-    const employee = await employeesRepo.create(req.body)
-    res.status(201).json(employee)
+    const employee = await employeesService.createEmployee(req.body)
+    employee
+      ? res.status(201).json(employee)
+      : res.status(400).json({ message: 'Faild to create employee!' })
   } catch {
-    res.status(500).json({ message: 'Failed to create employee!' })
+    res.status(500).json({ message: 'Internal Server Error!' })
   }
 }
 
@@ -69,8 +77,12 @@ export const updateEmployee = async (
   res: Response<MessageView>
 ) => {
   try {
-    const employee = await employeesRepo.update(req.params.id, req.body)
-    employee
+    const isUpdated = await employeesService.updateEmployee(
+      req.params.id,
+      req.body
+    )
+    
+    isUpdated
       ? res.status(200).json({ message: 'Employee data updated!' })
       : res.status(404).json({ message: 'Employee not found!' })
   } catch (err) {
@@ -88,11 +100,10 @@ export const deleteEmployee = async (
   res: Response<MessageView>
 ) => {
   try {
-    const employee = await employeesRepo.delete(req.params.id)
-    employee
-      ? res.status(200).json({
-          message: `Employee ${employee.firstName} ${employee.lastName} deleted!`,
-        })
+    const isDeleted = await employeesService.deleteEmployee(req.params.id)
+
+    isDeleted
+      ? res.status(200).json({ message: `Employee deleted!` })
       : res.status(404).json({ message: 'Employee not found!' })
   } catch {
     res.status(500).json({ message: 'Internal Server Error!' })

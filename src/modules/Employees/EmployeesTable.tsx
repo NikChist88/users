@@ -69,7 +69,7 @@ export const EmployeesTable: FC<EmployeesTable> = memo(({ employees }) => {
           ))}
         </Tbody>
       </Table>
-      <span>Total employees: {employees.length}</span>
+      <span>Total employees: {employees?.length}</span>
     </TableContainer>
   )
 })

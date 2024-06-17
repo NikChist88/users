@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react'
 import { Box, Select, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { limitFilter, setLimitFilter } from '../store/filterSlice'
+import { limitFilter, setLimitFilter } from '../../Filter/store/filterSlice'
 
 export const PageFilter = () => {
   const dispatch = useAppDispatch()

@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmployee = exports.updateEmployee = exports.createEmployee = exports.getEmployeeById = exports.getAllEmployees = void 0;
-const employees_repo_1 = require("../repositories/employees.repo");
+const repositories_1 = require("../repositories");
+const employees_service_1 = require("../services/employees-service");
 /**
  * @route GET /employees
  * @desc Get all employees
@@ -18,7 +19,7 @@ const employees_repo_1 = require("../repositories/employees.repo");
  */
 const getAllEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employees = yield employees_repo_1.employeesRepo.findAll();
+        const employees = yield repositories_1.employeesQueryRepo.findAll();
         employees
             ? res.status(200).json(employees)
             : res.status(404).json({ message: 'Employees not found!' });
@@ -29,16 +30,16 @@ const getAllEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 exports.getAllEmployees = getAllEmployees;
 /**
- * @route GET /employees/:id
+ * @route GET /employees/employee
  * @desc Get employee by ID
  * @access Private
  */
 const getEmployeeById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employee = yield employees_repo_1.employeesRepo.findById(req.params.id);
+        const employee = yield repositories_1.employeesQueryRepo.findById(req.query.id);
         employee
             ? res.status(200).json(employee)
-            : res.status(404).json({ message: 'Employee not found!' });
+            : res.status(404).json({ message: 'Employees not found!' });
     }
     catch (_b) {
         res.status(500).json({ message: 'Internal Server Error!' });
@@ -52,11 +53,13 @@ exports.getEmployeeById = getEmployeeById;
  */
 const createEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employee = yield employees_repo_1.employeesRepo.create(req.body);
-        res.status(201).json(employee);
+        const employee = yield employees_service_1.employeesService.createEmployee(req.body);
+        employee
+            ? res.status(201).json(employee)
+            : res.status(400).json({ message: 'Faild to create employee!' });
     }
     catch (_c) {
-        res.status(500).json({ message: 'Failed to create employee!' });
+        res.status(500).json({ message: 'Internal Server Error!' });
     }
 });
 exports.createEmployee = createEmployee;
@@ -67,8 +70,8 @@ exports.createEmployee = createEmployee;
  */
 const updateEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employee = yield employees_repo_1.employeesRepo.update(req.params.id, req.body);
-        employee
+        const isUpdated = yield employees_service_1.employeesService.updateEmployee(req.params.id, req.body);
+        isUpdated
             ? res.status(200).json({ message: 'Employee data updated!' })
             : res.status(404).json({ message: 'Employee not found!' });
     }
@@ -84,11 +87,9 @@ exports.updateEmployee = updateEmployee;
  */
 const deleteEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employee = yield employees_repo_1.employeesRepo.delete(req.params.id);
-        employee
-            ? res.status(200).json({
-                message: `Employee ${employee.firstName} ${employee.lastName} deleted!`,
-            })
+        const isDeleted = yield employees_service_1.employeesService.deleteEmployee(req.params.id);
+        isDeleted
+            ? res.status(200).json({ message: `Employee deleted!` })
             : res.status(404).json({ message: 'Employee not found!' });
     }
     catch (_d) {

@@ -5,7 +5,7 @@ const express_1 = require("express");
 const controllers_1 = require("../controllers");
 exports.employeesRouter = (0, express_1.Router)();
 exports.employeesRouter.get('/', controllers_1.getAllEmployees);
-exports.employeesRouter.get('/:id', controllers_1.getEmployeeById);
+exports.employeesRouter.get('/employee/', controllers_1.getEmployeeById);
 exports.employeesRouter.post('/add', controllers_1.createEmployee);
 exports.employeesRouter.patch('/edit/:id', controllers_1.updateEmployee);
 exports.employeesRouter.delete('/:id', controllers_1.deleteEmployee);

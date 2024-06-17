@@ -15,6 +15,8 @@ import { roles } from '@/components/RolesSelect/constants/roles'
 import { Response } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 import { fields } from '../constants/fields'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 type EmployeeForm = {
   employee?: Employees
@@ -28,7 +30,26 @@ export const EmployeeForm: FC<EmployeeForm> = ({
   onSubmit,
 }) => {
   const { pathname } = useLocation()
-  const { register, handleSubmit, reset } = useForm<Employees>({
+  const schema = yup
+    .object({
+      firstName: yup.string().required(),
+      lastName: yup.string().required(),
+      email: yup.string().required(),
+      dateOfBirth: yup.string().required(),
+      phone: yup.string().required(),
+      address: yup.string().required(),
+      company: yup.string().required(),
+      country: yup.string().required(),
+      gender: yup.string().required(),
+      role: yup.string().required(),
+    })
+    .required()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Employees>({
     defaultValues: {
       id: employee?.id || uuidv4(),
       firstName: employee?.firstName || '',
@@ -44,6 +65,7 @@ export const EmployeeForm: FC<EmployeeForm> = ({
       aboutMe: employee?.aboutMe || '',
       userId: employee?.userId || user?.id,
     },
+    resolver: yupResolver(schema),
   })
 
   return (
@@ -58,7 +80,7 @@ export const EmployeeForm: FC<EmployeeForm> = ({
             key={key}
             className="form-control"
           >
-            <FormLabel>{field.label}:</FormLabel>
+            <FormLabel>{field.label}: *</FormLabel>
             <Input
               placeholder={`${field.label}...`}
               {...register(`${field.register}`, {
@@ -74,7 +96,7 @@ export const EmployeeForm: FC<EmployeeForm> = ({
         gap={'15px'}
       >
         <FormControl className="form-control">
-          <FormLabel>Gender:</FormLabel>
+          <FormLabel>Gender: *</FormLabel>
           <Select
             placeholder={employee?.gender || 'Select gender...'}
             bgColor={'#EEEFF1'}
@@ -85,7 +107,7 @@ export const EmployeeForm: FC<EmployeeForm> = ({
           </Select>
         </FormControl>
         <FormControl className="form-control">
-          <FormLabel>Role:</FormLabel>
+          <FormLabel>Role: *</FormLabel>
           <Select
             placeholder={employee?.role || 'Select role...'}
             bgColor={'#EEEFF1'}

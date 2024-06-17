@@ -5,7 +5,6 @@ import { filterByRole } from '../helpers/filterByRole'
 import { Employees } from '@prisma/index'
 
 export const useFilters = (data: Employees[]) => {
-  const limitFilter = useAppSelector(select.limitFilter)
   const roleFilter = useAppSelector(select.roleFilter)
   const searchQuery = useAppSelector(select.searchQuery)
 
@@ -19,15 +18,7 @@ export const useFilters = (data: Employees[]) => {
     filteredEmployees = data
   }
 
-  const totalPages = Math.ceil(filteredEmployees.length / limitFilter)
-  const pages = Array.from({ length: totalPages }, (_, i) => i * limitFilter)
-
-  const employees = pages.map((pageIndex) =>
-    filteredEmployees.slice(pageIndex, pageIndex + limitFilter)
-  )
-
   return {
-    employees,
-    totalPages,
+    filteredEmployees,
   }
 }

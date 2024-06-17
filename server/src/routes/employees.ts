@@ -10,7 +10,7 @@ import {
 export const employeesRouter = Router()
 
 employeesRouter.get('/', getAllEmployees)
-employeesRouter.get('/:id', getEmployeeById)
+employeesRouter.get('/employee/', getEmployeeById)
 employeesRouter.post('/add', createEmployee)
 employeesRouter.patch('/edit/:id', updateEmployee)
 employeesRouter.delete('/:id', deleteEmployee)

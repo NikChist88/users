@@ -24,7 +24,7 @@ export const employeesApi = createApi({
     }),
     getEmployeeById: builder.query<Employees, string>({
       query: (id) => ({
-        url: `employees/${id}`,
+        url: `employees/employee?id=${id}`,
         method: 'GET',
       }),
     }),

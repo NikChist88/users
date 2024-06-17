@@ -24,7 +24,7 @@ export const SearchBar = () => {
       </InputLeftElement>
       <Input
         backgroundColor={'#ffffff'}
-        placeholder="Search user by name..."
+        placeholder="Search employees by name..."
         value={search}
         onChange={handleOnChange}
         height={'35px'}
