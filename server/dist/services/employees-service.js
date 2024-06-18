@@ -23,6 +23,17 @@ exports.employeesService = {
             }
         });
     },
+    createEmployees(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const employees = yield repositories_1.employeesRepo.createMany(data);
+                return employees;
+            }
+            catch (_a) {
+                return null;
+            }
+        });
+    },
     updateEmployee(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

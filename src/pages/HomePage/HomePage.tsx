@@ -1,16 +1,28 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Filters, useFilters } from '@/modules/Filter'
-import { EmployeesTable, useGetAllEmployeesQuery } from '@/modules/Employees'
+import { EmployeesTable, useGetEmployeesQuery } from '@/modules/Employees'
+import {
+  Pagination,
+  selectPageNumber,
+  selectPageSize,
+  useGetEmployeesCountQuery,
+} from '@/modules/Pagination'
 import { selectUser } from '@/modules/Auth'
 import { useAppSelector } from '@/store'
 import { Spinner } from '@/ui/Spinner'
 
 export const HomePage = () => {
-  const { data = [], isLoading } = useGetAllEmployeesQuery()
+  const pageSize = useAppSelector(selectPageSize)
+  const pageNumber = useAppSelector(selectPageNumber)
   const user = useAppSelector(selectUser)
+  const { data = [], isLoading } = useGetEmployeesQuery([
+    pageSize,
+    pageNumber,
+    user!.id,
+  ])
   const { filteredEmployees } = useFilters(data)
-  const userEmployees = filteredEmployees.filter((e) => e.userId === user!.id)
+  const { currentData } = useGetEmployeesCountQuery(user!.id)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -24,7 +36,11 @@ export const HomePage = () => {
   return (
     <>
       <Filters />
-      <EmployeesTable employees={userEmployees} />
+      <EmployeesTable
+        employees={filteredEmployees}
+        count={currentData!}
+      />
+      <Pagination count={currentData!} />
     </>
   )
 }

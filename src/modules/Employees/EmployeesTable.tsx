@@ -18,58 +18,61 @@ import './styles.css'
 
 type EmployeesTable = {
   employees: Employees[]
+  count: number
 }
 
-export const EmployeesTable: FC<EmployeesTable> = memo(({ employees }) => {
-  const navigate = useNavigate()
+export const EmployeesTable: FC<EmployeesTable> = memo(
+  ({ employees, count }) => {
+    const navigate = useNavigate()
 
-  return (
-    <TableContainer className="tableContainer">
-      <Box
-        display={'flex'}
-        justifyContent={'end'}
-        marginBottom={'15px'}
-      >
-        <Button
+    return (
+      <TableContainer className="tableContainer">
+        <Box
           display={'flex'}
-          alignItems={'center'}
-          columnGap={'5px'}
-          width={'150px'}
-          colorScheme="blue"
-          height={'35px'}
-          fontSize={'14px'}
-          onClick={() => navigate('/add')}
+          justifyContent={'end'}
+          marginBottom={'15px'}
         >
-          <IoMdAdd size={18} />
-          Add Employee
-        </Button>
-      </Box>
-      <Table
-        size="md"
-        colorScheme="telegram"
-      >
-        <Thead bgColor={'#2883CC'}>
-          <Tr>
-            {tableHeaders.map((title, index) => (
-              <Th
-                key={index}
-                color={'#fff'}
-              >
-                {title}
-              </Th>
+          <Button
+            display={'flex'}
+            alignItems={'center'}
+            columnGap={'5px'}
+            width={'150px'}
+            colorScheme="blue"
+            height={'35px'}
+            fontSize={'14px'}
+            onClick={() => navigate('/add')}
+          >
+            <IoMdAdd size={18} />
+            Add Employee
+          </Button>
+        </Box>
+        <Table
+          size="md"
+          colorScheme="telegram"
+        >
+          <Thead bgColor={'#2883CC'}>
+            <Tr>
+              {tableHeaders.map((title, index) => (
+                <Th
+                  key={index}
+                  color={'#fff'}
+                >
+                  {title}
+                </Th>
+              ))}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {employees?.map((employee) => (
+              <EmployeeItem
+                key={employee.id}
+                employee={employee}
+              />
             ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {employees?.map((employee) => (
-            <EmployeeItem
-              key={employee.id}
-              employee={employee}
-            />
-          ))}
-        </Tbody>
-      </Table>
-      <span>Total employees: {employees?.length}</span>
-    </TableContainer>
-  )
-})
+          </Tbody>
+        </Table>
+        <span>Total employees: {count}</span>
+      </TableContainer>
+    )
+  }
+)

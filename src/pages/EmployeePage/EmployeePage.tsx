@@ -1,13 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { Box, Button } from '@chakra-ui/react'
-import { useEmployees, useGetEmployeeByIdQuery } from '@/modules/Employees'
+import { useEmployees, useGetByIdQuery } from '@/modules/Employees'
 import { Spinner } from '@/ui/Spinner'
 import { titles } from './constants/titles'
 import './styles.css'
 
 export const EmployeePage = () => {
   const { id } = useParams<{ id: string }>()
-  const { data, isLoading } = useGetEmployeeByIdQuery(id || '')
+  const { data, isLoading } = useGetByIdQuery(id || '')
   const { handleDeleteEmployee } = useEmployees(data)
   const navigate = useNavigate()
   const values: string[] = data && Object.values(data).slice(3, -2)

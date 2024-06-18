@@ -1,17 +1,17 @@
 import { Employees } from '@prisma/index'
 import { toast } from 'react-toastify'
 import {
-  useAddEmployeeMutation,
-  useUpdateEmployeeMutation,
-  useDeleteEmployeeMutation,
+  useCreateMutation,
+  useUpdateMutation,
+  useDeleteMutation,
 } from '../api/employeesApi'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler } from 'react-hook-form'
 
 export const useEmployees = (employee?: Employees) => {
-  const [addEmployee] = useAddEmployeeMutation()
-  const [updateEmployee] = useUpdateEmployeeMutation()
-  const [deleteEmployee] = useDeleteEmployeeMutation()
+  const [addEmployee] = useCreateMutation()
+  const [updateEmployee] = useUpdateMutation()
+  const [deleteEmployee] = useDeleteMutation()
   const navigate = useNavigate()
 
   const handleAddEmployee: SubmitHandler<Employees> = async (

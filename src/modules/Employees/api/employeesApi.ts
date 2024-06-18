@@ -1,17 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Employees } from '@prisma/index'
+import { Employees } from '@prisma/client'
+import { api } from '@store/api'
 
-export const employeesApi = createApi({
-  reducerPath: 'employeesApi',
-  tagTypes: ['Employees'],
-  refetchOnMountOrArgChange: true,
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3003',
-  }),
+export const employeesApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAllEmployees: builder.query<Employees[], void>({
-      query: () => ({
-        url: 'employees',
+    getEmployees: builder.query<
+      Employees[],
+      [pageSize: number, pageNumber: number, userId: string]
+    >({
+      query: ([pageSize, pageNumber, userId]) => ({
+        url: `employees/limit?pageSize=${pageSize}&pageNumber=${pageNumber}&userId=${userId}`,
         method: 'GET',
       }),
       providesTags: (result) =>
@@ -22,13 +19,13 @@ export const employeesApi = createApi({
             ]
           : ['Employees'],
     }),
-    getEmployeeById: builder.query<Employees, string>({
+    getById: builder.query<Employees, string>({
       query: (id) => ({
         url: `employees/employee?id=${id}`,
         method: 'GET',
       }),
     }),
-    addEmployee: builder.mutation<Employees, Employees>({
+    create: builder.mutation<Employees, Employees>({
       query: (employee) => ({
         url: 'employees/add',
         method: 'POST',
@@ -36,7 +33,7 @@ export const employeesApi = createApi({
       }),
       invalidatesTags: ['Employees'],
     }),
-    updateEmployee: builder.mutation<string, Employees>({
+    update: builder.mutation<string, Employees>({
       query: (employee) => ({
         url: `employees/edit/${employee.id}`,
         method: 'PATCH',
@@ -44,9 +41,9 @@ export const employeesApi = createApi({
       }),
       invalidatesTags: ['Employees'],
     }),
-    deleteEmployee: builder.mutation<void, string>({
+    delete: builder.mutation<void, string>({
       query: (id) => ({
-        url: `employees/${id}`,
+        url: `employees/delete/${id}`,
         method: 'DELETE',
         body: { id },
       }),
@@ -56,9 +53,9 @@ export const employeesApi = createApi({
 })
 
 export const {
-  useGetAllEmployeesQuery,
-  useGetEmployeeByIdQuery,
-  useAddEmployeeMutation,
-  useUpdateEmployeeMutation,
-  useDeleteEmployeeMutation,
+  useGetEmployeesQuery,
+  useGetByIdQuery,
+  useCreateMutation,
+  useUpdateMutation,
+  useDeleteMutation,
 } = employeesApi

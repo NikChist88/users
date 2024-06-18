@@ -11,6 +11,15 @@ export const employeesService = {
     }
   },
 
+  async createEmployees(data: Employees[]): Promise<Employees[] | null> {
+    try {
+      const employees = await employeesRepo.createMany(data)
+      return employees
+    } catch {
+      return null
+    }
+  },
+
   async updateEmployee(
     id: string,
     data: Employees

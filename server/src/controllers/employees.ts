@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { employeesRepo, employeesQueryRepo } from '../repositories'
+import { employeesQueryRepo } from '../repositories'
 import { employeesService } from '../services/employees-service'
 import {
   RequestParams,
@@ -11,30 +11,36 @@ import { MessageView } from '../views/employees'
 import { Employees } from '@prisma/client'
 
 /**
- * @route GET /employees
- * @desc Get all employees
+ * @route GET /employees/limit?
+ * @desc Get employees by page size
  * @access Private
  */
-export const getAllEmployees = async (
-  req: Request,
+export const getEmployees = async (
+  req: RequestQuery<{ pageSize: string; pageNumber: string; userId: string }>,
   res: Response<Employees[] | MessageView>
 ) => {
   try {
-    const employees = await employeesQueryRepo.findAll()
+    const employees = await employeesQueryRepo.findEmployees(
+      +req.query.pageSize,
+      +req.query.pageNumber,
+      req.query.userId
+    )
+
     employees
       ? res.status(200).json(employees)
       : res.status(404).json({ message: 'Employees not found!' })
-  } catch {
+  } catch (err) {
+    console.log(err)
     res.status(500).json({ message: 'Internal Server Error!' })
   }
 }
 
 /**
- * @route GET /employees/employee
+ * @route GET /employees/employee?
  * @desc Get employee by ID
  * @access Private
  */
-export const getEmployeeById = async (
+export const getById = async (
   req: RequestQuery<{ id: string }>,
   res: Response<Employees | MessageView>
 ) => {
@@ -49,11 +55,32 @@ export const getEmployeeById = async (
 }
 
 /**
+ * @route GET /employees/count
+ * @desc Get employees count by user ID
+ * @access Private
+ */
+export const getEmployeesCount = async (
+  req: RequestQuery<{ userId: string }>,
+  res: Response<number | MessageView>
+) => {
+  try {
+    const count = await employeesQueryRepo.countEmployees(req.query.userId)
+
+    count
+      ? res.status(200).json(count)
+      : res.status(404).json({ message: 'Employees not found!' })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ message: 'Internal Server Error!' })
+  }
+}
+
+/**
  * @route POST /employees/add
  * @desc Create new employee
  * @access Private
  */
-export const createEmployee = async (
+export const create = async (
   req: RequestBody<Employees>,
   res: Response<Employees | MessageView>
 ) => {
@@ -68,11 +95,30 @@ export const createEmployee = async (
 }
 
 /**
+ * @route POST /employees/addMany
+ * @desc Create new employee
+ * @access Private
+ */
+export const createMany = async (
+  req: RequestBody<Employees[]>,
+  res: Response<Employees[] | MessageView>
+) => {
+  try {
+    const employees = await employeesService.createEmployees(req.body)
+    employees !== null
+      ? res.status(201).json(employees)
+      : res.status(400).json({ message: 'Faild to create employees!' })
+  } catch {
+    res.status(500).json({ message: 'Internal Server Error!' })
+  }
+}
+
+/**
  * @route PATCH /employees/edit/:id
  * @desc Update employee data
  * @access Private
  */
-export const updateEmployee = async (
+export const update = async (
   req: RequestParamsAndBody<{ id: string }, Employees>,
   res: Response<MessageView>
 ) => {
@@ -81,7 +127,7 @@ export const updateEmployee = async (
       req.params.id,
       req.body
     )
-    
+
     isUpdated
       ? res.status(200).json({ message: 'Employee data updated!' })
       : res.status(404).json({ message: 'Employee not found!' })
@@ -91,11 +137,11 @@ export const updateEmployee = async (
 }
 
 /**
- * @route DELETE /employees/:id
+ * @route REMOVE /employees/delete/:id
  * @desc Delete employee by ID
  * @access Private
  */
-export const deleteEmployee = async (
+export const remove = async (
   req: RequestParams<{ id: string }>,
   res: Response<MessageView>
 ) => {

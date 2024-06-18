@@ -7,6 +7,16 @@ export const employeesRepo = {
     return this._mapper(employee)
   },
 
+  async createMany(data: Employees[]): Promise<Employees[]> {
+    const employees = await prisma.employees.createManyAndReturn({
+      data: [...data],
+    })
+
+    return employees.map((employee) => {
+      return this._mapper(employee)
+    })
+  },
+
   async update(id: string, data: Employees): Promise<Employees> {
     const employee = await prisma.employees.update({ where: { id }, data })
     return this._mapper(employee)

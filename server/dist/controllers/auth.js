@@ -25,11 +25,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 .status(400)
                 .json({ message: 'Email and password is required!' });
         }
-        const user = yield prisma_client_1.prisma.user.findFirst({
-            where: {
-                email,
-            },
-        });
+        const user = yield prisma_client_1.prisma.user.findFirst({ where: { email } });
         const isPasswordCorrect = user && (yield bcrypt_1.default.compare(password, user.password));
         const secret = process.env.JWT_SECRET;
         if (user && isPasswordCorrect && secret) {
@@ -45,7 +41,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     catch (_a) {
-        res.status(500).json({ message: 'Something went wrong!' });
+        res.status(500).json({ message: 'Internal Server Error!' });
     }
 });
 exports.login = login;

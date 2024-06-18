@@ -18,6 +18,16 @@ exports.employeesRepo = {
             return this._mapper(employee);
         });
     },
+    createMany(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const employees = yield prisma_client_1.prisma.employees.createManyAndReturn({
+                data: [...data],
+            });
+            return employees.map((employee) => {
+                return this._mapper(employee);
+            });
+        });
+    },
     update(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             const employee = yield prisma_client_1.prisma.employees.update({ where: { id }, data });

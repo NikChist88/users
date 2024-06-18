@@ -1,5 +1,10 @@
 import { ChangeEvent } from 'react'
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import {
+  Input,
+  InputGroup,
+  InputLeftElement,
+  IconButton,
+} from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { searchQuery, setSearchQuery } from '../store/filterSlice'
 import { IoIosSearch } from 'react-icons/io'
@@ -15,19 +20,23 @@ export const SearchBar = () => {
   return (
     <InputGroup
       display={'flex'}
+      columnGap={'10px'}
       alignItems={'center'}
       marginLeft={'auto'}
       width={'450px'}
     >
-      <InputLeftElement pointerEvents="none">
-        <IoIosSearch size={18} />
-      </InputLeftElement>
       <Input
         backgroundColor={'#ffffff'}
         placeholder="Search employees by name..."
         value={search}
         onChange={handleOnChange}
         height={'35px'}
+      />
+      <IconButton
+        aria-label="search"
+        icon={<IoIosSearch size={20} />}
+        height={'35px'}
+        colorScheme="blue"
       />
     </InputGroup>
   )

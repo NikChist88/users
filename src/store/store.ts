@@ -1,12 +1,12 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { authApi, authReducer, listenerMiddleware } from '@/modules/Auth'
-import { employeesReducer, employeesApi } from '@/modules/Employees'
+import { authReducer, listenerMiddleware } from '@/modules/Auth'
+import { employeesReducer } from '@/modules/Employees'
 import { filtersReducer } from '@/modules/Filter'
 import { paginateReducer } from '@/modules/Pagination'
+import { api } from './api'
 
 const rootReducer = combineReducers({
-  [employeesApi.reducerPath]: employeesApi.reducer,
-  [authApi.reducerPath]: authApi.reducer,
+  [api.reducerPath]: api.reducer,
   auth: authReducer,
   employees: employeesReducer,
   filters: filtersReducer,
@@ -17,7 +17,7 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDeaultMiddleware) =>
     getDeaultMiddleware()
-      .concat(employeesApi.middleware, authApi.middleware)
+      .concat(api.middleware)
       .prepend(listenerMiddleware.middleware),
 })
 

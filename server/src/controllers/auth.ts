@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { prisma } from '../prisma/prisma-client'
+import { User } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -14,11 +15,7 @@ export const login = async (req: Request, res: Response) => {
         .json({ message: 'Email and password is required!' })
     }
 
-    const user = await prisma.user.findFirst({
-      where: {
-        email,
-      },
-    })
+    const user = await prisma.user.findFirst({ where: { email } })
 
     const isPasswordCorrect =
       user && (await bcrypt.compare(password, user.password))
@@ -36,7 +33,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Wrong email or password!' })
     }
   } catch {
-    res.status(500).json({ message: 'Something went wrong!' })
+    res.status(500).json({ message: 'Internal Server Error!' })
   }
 }
 

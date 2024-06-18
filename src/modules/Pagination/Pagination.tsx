@@ -1,17 +1,20 @@
 import { FC, memo } from 'react'
 import { Box, Button, Text } from '@chakra-ui/react'
 import { usePagination } from './hooks/usePagination'
+import { PageSize } from './components/PageSize'
 import './styles.css'
 
 type PaginationProps = {
-  totalPages: number
+  count: number
 }
 
-export const Pagination: FC<PaginationProps> = memo(({ totalPages }) => {
-  const { page, handleNextPage, handlePrevPage } = usePagination()
+export const Pagination: FC<PaginationProps> = memo(({ count }) => {
+  const { pageNumber, totalPages, handleNextPage, handlePrevPage } =
+    usePagination(count)
 
   return (
     <Box className="pagination">
+      <PageSize />
       <Box
         display={'flex'}
         alignItems={'center'}
@@ -20,7 +23,7 @@ export const Pagination: FC<PaginationProps> = memo(({ totalPages }) => {
       >
         <Button
           onClick={handlePrevPage}
-          isDisabled={page === 0}
+          isDisabled={pageNumber === 1}
           size={'sm'}
           colorScheme="blue"
           fontSize={'12px'}
@@ -33,11 +36,11 @@ export const Pagination: FC<PaginationProps> = memo(({ totalPages }) => {
           justifyContent={'center'}
           color={'#000000'}
         >
-          {page + 1} of {totalPages} pages
+          {pageNumber} of {totalPages} pages
         </Text>
         <Button
           onClick={handleNextPage}
-          isDisabled={page === totalPages - 1}
+          isDisabled={pageNumber === totalPages}
           size={'sm'}
           colorScheme="blue"
           fontSize={'12px'}

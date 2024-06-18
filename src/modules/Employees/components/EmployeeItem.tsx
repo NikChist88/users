@@ -12,6 +12,8 @@ type EmployeeItem = {
 }
 
 export const EmployeeItem: FC<EmployeeItem> = memo(({ employee }) => {
+  const { id, firstName, lastName, email, phone, role, company, country } =
+    employee
   const { handleDeleteEmployee } = useEmployees(employee)
   const navigate = useNavigate()
   const initials = getInitials(`${employee.firstName} ${employee.lastName}`)
@@ -29,15 +31,15 @@ export const EmployeeItem: FC<EmployeeItem> = memo(({ employee }) => {
             display={'flex'}
             flexDirection={'column'}
           >
-            <Text>{`${employee.firstName} ${employee.lastName}`}</Text>
-            <Text fontSize={'xs'}>{employee.phone}</Text>
+            <Text>{`${firstName} ${lastName}`}</Text>
+            <Text fontSize={'xs'}>{phone}</Text>
           </Box>
         </Box>
       </Td>
-      <Td>{employee.email}</Td>
-      <Td>{employee.role}</Td>
-      <Td>{employee.company}</Td>
-      <Td>{employee.country}</Td>
+      <Td>{email}</Td>
+      <Td>{role}</Td>
+      <Td>{company}</Td>
+      <Td>{country}</Td>
       <Td>
         <Box
           display={'flex'}
@@ -48,7 +50,7 @@ export const EmployeeItem: FC<EmployeeItem> = memo(({ employee }) => {
             title="Employee Details"
             aria-label="details"
             bgColor={'transparent'}
-            onClick={() => navigate(`/employee/${employee.id}`)}
+            onClick={() => navigate(`/employee/${id}`)}
             icon={
               <FaEye
                 size={'18px'}

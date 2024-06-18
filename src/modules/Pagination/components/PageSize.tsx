@@ -1,14 +1,14 @@
 import { ChangeEvent } from 'react'
 import { Box, Select, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { limitFilter, setLimitFilter } from '../../Filter/store/filterSlice'
+import { selectPageSize, setPageSize } from '../store/paginateSlice'
 
-export const PageFilter = () => {
+export const PageSize = () => {
   const dispatch = useAppDispatch()
-  const limit = useAppSelector(limitFilter)
+  const pageSize = useAppSelector(selectPageSize)
 
-  const handleChangePageFilter = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLimitFilter(+e.currentTarget.value))
+  const handleChangePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setPageSize(+e.currentTarget.value))
   }
 
   return (
@@ -18,12 +18,12 @@ export const PageFilter = () => {
       columnGap={'5px'}
       height={'35px'}
     >
-      <Text fontSize={'14px'}>Show:</Text>
+      <Text fontSize={'14px'}>Show on page:</Text>
       <Select
         width={'80px'}
         height={'35px'}
-        defaultValue={limit}
-        onChange={handleChangePageFilter}
+        defaultValue={pageSize}
+        onChange={handleChangePageSize}
       >
         <option value={5}>5</option>
         <option value={10}>10</option>

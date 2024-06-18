@@ -9,66 +9,102 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteEmployee = exports.updateEmployee = exports.createEmployee = exports.getEmployeeById = exports.getAllEmployees = void 0;
+exports.remove = exports.update = exports.createMany = exports.create = exports.getEmployeesCount = exports.getById = exports.getEmployees = void 0;
 const repositories_1 = require("../repositories");
 const employees_service_1 = require("../services/employees-service");
 /**
- * @route GET /employees
- * @desc Get all employees
+ * @route GET /employees/limit?
+ * @desc Get employees by page size
  * @access Private
  */
-const getAllEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employees = yield repositories_1.employeesQueryRepo.findAll();
+        const employees = yield repositories_1.employeesQueryRepo.findEmployees(+req.query.pageSize, +req.query.pageNumber, req.query.userId);
         employees
             ? res.status(200).json(employees)
             : res.status(404).json({ message: 'Employees not found!' });
     }
-    catch (_a) {
+    catch (err) {
+        console.log(err);
         res.status(500).json({ message: 'Internal Server Error!' });
     }
 });
-exports.getAllEmployees = getAllEmployees;
+exports.getEmployees = getEmployees;
 /**
- * @route GET /employees/employee
+ * @route GET /employees/employee?
  * @desc Get employee by ID
  * @access Private
  */
-const getEmployeeById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const employee = yield repositories_1.employeesQueryRepo.findById(req.query.id);
         employee
             ? res.status(200).json(employee)
             : res.status(404).json({ message: 'Employees not found!' });
     }
-    catch (_b) {
+    catch (_a) {
         res.status(500).json({ message: 'Internal Server Error!' });
     }
 });
-exports.getEmployeeById = getEmployeeById;
+exports.getById = getById;
+/**
+ * @route GET /employees/count
+ * @desc Get employees count by user ID
+ * @access Private
+ */
+const getEmployeesCount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const count = yield repositories_1.employeesQueryRepo.countEmployees(req.query.userId);
+        count
+            ? res.status(200).json(count)
+            : res.status(404).json({ message: 'Employees not found!' });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal Server Error!' });
+    }
+});
+exports.getEmployeesCount = getEmployeesCount;
 /**
  * @route POST /employees/add
  * @desc Create new employee
  * @access Private
  */
-const createEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const employee = yield employees_service_1.employeesService.createEmployee(req.body);
         employee
             ? res.status(201).json(employee)
             : res.status(400).json({ message: 'Faild to create employee!' });
     }
+    catch (_b) {
+        res.status(500).json({ message: 'Internal Server Error!' });
+    }
+});
+exports.create = create;
+/**
+ * @route POST /employees/addMany
+ * @desc Create new employee
+ * @access Private
+ */
+const createMany = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const employees = yield employees_service_1.employeesService.createEmployees(req.body);
+        employees !== null
+            ? res.status(201).json(employees)
+            : res.status(400).json({ message: 'Faild to create employees!' });
+    }
     catch (_c) {
         res.status(500).json({ message: 'Internal Server Error!' });
     }
 });
-exports.createEmployee = createEmployee;
+exports.createMany = createMany;
 /**
  * @route PATCH /employees/edit/:id
  * @desc Update employee data
  * @access Private
  */
-const updateEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const isUpdated = yield employees_service_1.employeesService.updateEmployee(req.params.id, req.body);
         isUpdated
@@ -79,13 +115,13 @@ const updateEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json({ message: 'Internal Server Error!' });
     }
 });
-exports.updateEmployee = updateEmployee;
+exports.update = update;
 /**
- * @route DELETE /employees/:id
+ * @route REMOVE /employees/delete/:id
  * @desc Delete employee by ID
  * @access Private
  */
-const deleteEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const remove = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const isDeleted = yield employees_service_1.employeesService.deleteEmployee(req.params.id);
         isDeleted
@@ -96,5 +132,5 @@ const deleteEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json({ message: 'Internal Server Error!' });
     }
 });
-exports.deleteEmployee = deleteEmployee;
+exports.remove = remove;
 //# sourceMappingURL=employees.js.map

@@ -1,24 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Response, Auth } from '@/types'
-import { AppRootState } from '@/store'
+import { Auth } from '@/types'
+import { api } from '@store/api'
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  tagTypes: ['Auth'],
-  refetchOnMountOrArgChange: true,
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3003/',
-    prepareHeaders: (headers, { getState }) => {
-      const token =
-        (getState() as AppRootState).auth.user?.token ||
-        localStorage.getItem('token')
-
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<Response, Auth>({
       query: (loginData) => ({

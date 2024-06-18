@@ -12,9 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.employeesQueryRepo = void 0;
 const prisma_client_1 = require("../prisma/prisma-client");
 exports.employeesQueryRepo = {
-    findAll() {
+    findEmployees(pageSize, pageNumber, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const employees = yield prisma_client_1.prisma.employees.findMany();
+            const user = yield prisma_client_1.prisma.user.findFirst({ where: { id: userId } });
+            const employees = yield prisma_client_1.prisma.employees.findMany({
+                where: { userId: user.id },
+                skip: (pageNumber - 1) * pageSize,
+                take: pageSize,
+            });
             return employees.map((employee) => {
                 return this._mapper(employee);
             });
@@ -24,6 +29,16 @@ exports.employeesQueryRepo = {
         return __awaiter(this, void 0, void 0, function* () {
             const employee = yield prisma_client_1.prisma.employees.findFirst({ where: { id } });
             return this._mapper(employee);
+        });
+    },
+    countEmployees(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield prisma_client_1.prisma.user.findFirst({ where: { id: userId } });
+            const employees = yield prisma_client_1.prisma.employees.findMany({
+                where: { userId: user.id },
+            });
+            const count = employees.length;
+            return count;
         });
     },
     _mapper(employee) {

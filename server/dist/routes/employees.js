@@ -4,9 +4,11 @@ exports.employeesRouter = void 0;
 const express_1 = require("express");
 const controllers_1 = require("../controllers");
 exports.employeesRouter = (0, express_1.Router)();
-exports.employeesRouter.get('/', controllers_1.getAllEmployees);
-exports.employeesRouter.get('/employee/', controllers_1.getEmployeeById);
-exports.employeesRouter.post('/add', controllers_1.createEmployee);
-exports.employeesRouter.patch('/edit/:id', controllers_1.updateEmployee);
-exports.employeesRouter.delete('/:id', controllers_1.deleteEmployee);
+exports.employeesRouter.get('/limit', controllers_1.getEmployees);
+exports.employeesRouter.get('/employee/', controllers_1.getById);
+exports.employeesRouter.get('/count', controllers_1.getEmployeesCount);
+exports.employeesRouter.post('/add', controllers_1.create);
+exports.employeesRouter.post('/addMany', controllers_1.createMany);
+exports.employeesRouter.patch('/edit/:id', controllers_1.update);
+exports.employeesRouter.delete('/delete/:id', controllers_1.remove);
 //# sourceMappingURL=employees.js.map

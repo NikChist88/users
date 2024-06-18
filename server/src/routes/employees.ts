@@ -1,16 +1,20 @@
 import { Router } from 'express'
 import {
-  getAllEmployees,
-  getEmployeeById,
-  createEmployee,
-  updateEmployee,
-  deleteEmployee,
+  getById,
+  getEmployeesCount,
+  create,
+  createMany,
+  update,
+  remove,
+  getEmployees,
 } from '../controllers'
 
 export const employeesRouter = Router()
 
-employeesRouter.get('/', getAllEmployees)
-employeesRouter.get('/employee/', getEmployeeById)
-employeesRouter.post('/add', createEmployee)
-employeesRouter.patch('/edit/:id', updateEmployee)
-employeesRouter.delete('/:id', deleteEmployee)
+employeesRouter.get('/limit', getEmployees)
+employeesRouter.get('/employee/', getById)
+employeesRouter.get('/count', getEmployeesCount)
+employeesRouter.post('/add', create)
+employeesRouter.post('/addMany', createMany)
+employeesRouter.patch('/edit/:id', update)
+employeesRouter.delete('/delete/:id', remove)
