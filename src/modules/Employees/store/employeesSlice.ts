@@ -1,13 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { employeesApi } from '../api/employeesApi'
-import { Employees } from '@prisma/prisma-client/index'
+import { Employees } from '@prisma/prisma-client/'
 
 type InitialState = {
   employees: Employees[] | null
+  allEntries: number
 }
 
 const initialState: InitialState = {
   employees: null,
+  allEntries: 0,
 }
 
 const employeesSlice = createSlice({
@@ -15,6 +17,9 @@ const employeesSlice = createSlice({
   initialState,
   reducers: {
     logout: () => initialState,
+    setAllEntries(state, action: PayloadAction<number>) {
+      state.allEntries = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -26,8 +31,10 @@ const employeesSlice = createSlice({
   },
   selectors: {
     selectEmployees: (state) => state.employees,
+    selectAllEntries: (state) => state.allEntries,
   },
 })
 
 export const employeesReducer = employeesSlice.reducer
-export const { selectEmployees } = employeesSlice.selectors
+export const { setAllEntries } = employeesSlice.actions
+export const { selectEmployees, selectAllEntries } = employeesSlice.selectors

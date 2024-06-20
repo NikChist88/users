@@ -1,8 +1,25 @@
+import { useEffect } from 'react'
 import { Container } from '@chakra-ui/react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { HomePageHeader } from '@/pages/HomePage/components/HomePageHeader/HomePageHeader'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { selectUser } from '@/modules/Auth'
+import { useGetEmployeesQuery, setAllEntries } from '@/modules/Employees'
+import { Spinner } from '@/ui/Spinner'
 
 export const MainLayout = () => {
+  const user = useAppSelector(selectUser)
+  const { isLoading } = useGetEmployeesQuery(user!.id)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!user) navigate('/auth')
+    dispatch(setAllEntries(user!.employeesCount))
+  }, [user])
+
+  if (isLoading) return <Spinner />
+
   return (
     <>
       <HomePageHeader />

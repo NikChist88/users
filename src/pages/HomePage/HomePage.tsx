@@ -1,46 +1,28 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Filters, useFilters } from '@/modules/Filter'
-import { EmployeesTable, useGetEmployeesQuery } from '@/modules/Employees'
 import {
-  Pagination,
-  selectPageNumber,
-  selectPageSize,
-  useGetEmployeesCountQuery,
-} from '@/modules/Pagination'
-import { selectUser } from '@/modules/Auth'
+  EmployeesTable,
+  selectAllEntries,
+  selectEmployees,
+} from '@/modules/Employees'
+import { Pagination, usePagination } from '@/modules/Pagination'
 import { useAppSelector } from '@/store'
-import { Spinner } from '@/ui/Spinner'
 
 export const HomePage = () => {
-  const pageSize = useAppSelector(selectPageSize)
-  const pageNumber = useAppSelector(selectPageNumber)
-  const user = useAppSelector(selectUser)
-  const { data = [], isLoading } = useGetEmployeesQuery([
-    pageSize,
-    pageNumber,
-    user!.id,
-  ])
-  const { filteredEmployees } = useFilters(data)
-  const { currentData } = useGetEmployeesCountQuery(user!.id)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth')
-    }
-  }, [user, navigate])
-
-  if (isLoading) return <Spinner />
+  const data = useAppSelector(selectEmployees)
+  const allEntries = useAppSelector(selectAllEntries)
+  const { employees } = useFilters(data!)
+  const { firstIndex, lastIndex } = usePagination(allEntries)
 
   return (
     <>
       <Filters />
       <EmployeesTable
-        employees={filteredEmployees}
-        count={currentData!}
+        employees={employees.slice(firstIndex, lastIndex)}
+        firstIndex={firstIndex}
+        lastIndex={lastIndex}
+        allEntries={allEntries}
       />
-      <Pagination count={currentData!} />
+      <Pagination allEntries={allEntries} />
     </>
   )
 }

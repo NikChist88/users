@@ -1,28 +1,28 @@
+import { useAppDispatch, useAppSelector } from '@/store'
 import {
   setPageNumber,
   selectPageNumber,
   selectPageSize,
 } from '../store/paginateSlice'
-import { useAppDispatch, useAppSelector } from '@/store'
 
-export const usePagination = (count: number) => {
+export const usePagination = (allEntries: number) => {
   const dispatch = useAppDispatch()
   const pageNumber = useAppSelector(selectPageNumber)
   const pageSize = useAppSelector(selectPageSize)
-  const totalPages = Math.ceil(count / pageSize)
 
-  const handlePrevPage = () => {
-    dispatch(setPageNumber(pageNumber - 1))
-  }
+  const totalPages = Math.ceil(allEntries / pageSize)
+  const firstIndex = (pageNumber - 1) * pageSize
+  const lastIndex = firstIndex + pageSize
 
-  const handleNextPage = () => {
-    dispatch(setPageNumber(pageNumber + 1))
+  const changePage = (newPage: number) => {
+    dispatch(setPageNumber(newPage))
   }
 
   return {
     pageNumber,
     totalPages,
-    handlePrevPage,
-    handleNextPage,
+    firstIndex,
+    lastIndex,
+    changePage,
   }
 }

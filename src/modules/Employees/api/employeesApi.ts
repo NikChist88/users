@@ -3,12 +3,9 @@ import { api } from '@store/api'
 
 export const employeesApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getEmployees: builder.query<
-      Employees[],
-      [pageSize: number, pageNumber: number, userId: string]
-    >({
-      query: ([pageSize, pageNumber, userId]) => ({
-        url: `employees/limit?pageSize=${pageSize}&pageNumber=${pageNumber}&userId=${userId}`,
+    getEmployees: builder.query<Employees[], string>({
+      query: (userId) => ({
+        url: `employees?userId=${userId}`,
         method: 'GET',
       }),
       providesTags: (result) =>

@@ -2,17 +2,8 @@ import { prisma } from '../prisma/prisma-client'
 import { Employees } from '@prisma/client'
 
 export const employeesQueryRepo = {
-  async findEmployees(
-    pageSize: number,
-    pageNumber: number,
-    userId: string
-  ): Promise<Employees[]> {
-    const user = await prisma.user.findFirst({ where: { id: userId } })
-    const employees = await prisma.employees.findMany({
-      where: { userId: user!.id },
-      skip: (pageNumber - 1) * pageSize,
-      take: pageSize,
-    })
+  async findEmployees(userId: string): Promise<Employees[]> {
+    const employees = await prisma.employees.findMany({ where: { userId } })
 
     return employees.map((employee) => {
       return this._mapper(employee)
@@ -22,15 +13,6 @@ export const employeesQueryRepo = {
   async findById(id: string): Promise<Employees> {
     const employee = await prisma.employees.findFirst({ where: { id } })
     return this._mapper(employee!)
-  },
-
-  async countEmployees(userId: string): Promise<number> {
-    const user = await prisma.user.findFirst({ where: { id: userId } })
-    const employees = await prisma.employees.findMany({
-      where: { userId: user!.id },
-    })
-    const count = employees.length
-    return count
   },
 
   _mapper(employee: Employees) {

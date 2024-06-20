@@ -1,24 +1,24 @@
 import { useAppSelector } from '@/store'
-import * as select from '../store/filterSlice'
 import { searchByName } from '../helpers/searchByName'
 import { filterByRole } from '../helpers/filterByRole'
 import { Employees } from '@prisma/index'
+import { selectRole, selectSearchQuery } from '../store/filterSlice'
 
 export const useFilters = (data: Employees[]) => {
-  const roleFilter = useAppSelector(select.roleFilter)
-  const searchQuery = useAppSelector(select.searchQuery)
+  const role = useAppSelector(selectRole)
+  const searchQuery = useAppSelector(selectSearchQuery)
 
-  let filteredEmployees
+  let employees
 
   if (searchQuery) {
-    filteredEmployees = searchByName(data, searchQuery)
-  } else if (roleFilter) {
-    filteredEmployees = filterByRole(data, roleFilter)
+    employees = searchByName(data, searchQuery)
+  } else if (role) {
+    employees = filterByRole(data, role)
   } else {
-    filteredEmployees = data
+    employees = data
   }
 
   return {
-    filteredEmployees,
+    employees,
   }
 }

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authApi } from '@/modules/Auth/api/authApi'
-import { Response } from '@/types'
+import { User } from '@prisma/prisma-client/'
 
 type InitialState = {
-  user: Response | null
+  user: User | null
   isAuthenticated: boolean
 }
 

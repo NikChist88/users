@@ -18,11 +18,13 @@ import './styles.css'
 
 type EmployeesTable = {
   employees: Employees[]
-  count: number
+  firstIndex: number
+  lastIndex: number
+  allEntries: number
 }
 
 export const EmployeesTable: FC<EmployeesTable> = memo(
-  ({ employees, count }) => {
+  ({ employees, firstIndex, lastIndex, allEntries }) => {
     const navigate = useNavigate()
 
     return (
@@ -71,7 +73,9 @@ export const EmployeesTable: FC<EmployeesTable> = memo(
             ))}
           </Tbody>
         </Table>
-        <span>Total employees: {count}</span>
+        <span>
+          Showing {firstIndex + 1} to {lastIndex} of {allEntries} employees
+        </span>
       </TableContainer>
     )
   }

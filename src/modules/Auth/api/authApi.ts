@@ -1,9 +1,10 @@
+import { User } from '@prisma/client'
 import { Auth } from '@/types'
 import { api } from '@store/api'
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<Response, Auth>({
+    login: builder.mutation<User, Auth>({
       query: (loginData) => ({
         url: 'auth/login',
         method: 'POST',
@@ -17,7 +18,7 @@ export const authApi = api.injectEndpoints({
         body: registerData,
       }),
     }),
-    current: builder.query<Response, void>({
+    current: builder.query<User, void>({
       query: () => ({
         url: 'auth/current',
         method: 'GET',

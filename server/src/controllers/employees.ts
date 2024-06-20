@@ -11,22 +11,18 @@ import { MessageView } from '../views/employees'
 import { Employees } from '@prisma/client'
 
 /**
- * @route GET /employees/limit?
+ * @route GET /employees
  * @desc Get employees by page size
  * @access Private
  */
 export const getEmployees = async (
-  req: RequestQuery<{ pageSize: string; pageNumber: string; userId: string }>,
+  req: RequestQuery<{ userId: string }>,
   res: Response<Employees[] | MessageView>
 ) => {
   try {
-    const employees = await employeesQueryRepo.findEmployees(
-      +req.query.pageSize,
-      +req.query.pageNumber,
-      req.query.userId
-    )
+    const employees = await employeesQueryRepo.findEmployees(req.query.userId)
 
-    employees
+    employees.length
       ? res.status(200).json(employees)
       : res.status(404).json({ message: 'Employees not found!' })
   } catch (err) {
@@ -50,27 +46,6 @@ export const getById = async (
       ? res.status(200).json(employee)
       : res.status(404).json({ message: 'Employees not found!' })
   } catch {
-    res.status(500).json({ message: 'Internal Server Error!' })
-  }
-}
-
-/**
- * @route GET /employees/count
- * @desc Get employees count by user ID
- * @access Private
- */
-export const getEmployeesCount = async (
-  req: RequestQuery<{ userId: string }>,
-  res: Response<number | MessageView>
-) => {
-  try {
-    const count = await employeesQueryRepo.countEmployees(req.query.userId)
-
-    count
-      ? res.status(200).json(count)
-      : res.status(404).json({ message: 'Employees not found!' })
-  } catch (err) {
-    console.log(err)
     res.status(500).json({ message: 'Internal Server Error!' })
   }
 }

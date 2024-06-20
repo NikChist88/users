@@ -1,9 +1,13 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, FC } from 'react'
 import { Box, Select, Text } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { selectPageSize, setPageSize } from '../store/paginateSlice'
 
-export const PageSize = () => {
+type PageSizeProps = {
+  allEntries: number
+}
+
+export const PageSize: FC<PageSizeProps> = ({ allEntries }) => {
   const dispatch = useAppDispatch()
   const pageSize = useAppSelector(selectPageSize)
 
@@ -25,6 +29,7 @@ export const PageSize = () => {
         defaultValue={pageSize}
         onChange={handleChangePageSize}
       >
+        <option value={allEntries}>All</option>
         <option value={5}>5</option>
         <option value={10}>10</option>
         <option value={15}>15</option>

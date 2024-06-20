@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id        String      @id @default(uuid())
-  name      String
-  email     String
-  password  String
-  employees Employees[]
+  id             String      @id @default(uuid())
+  name           String
+  email          String
+  password       String
+  employeesCount Int
+  employees      Employees[]
 }
 
 model Employees {

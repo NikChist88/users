@@ -1,20 +1,19 @@
 import { FC, memo } from 'react'
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import { usePagination } from './hooks/usePagination'
 import { PageSize } from './components/PageSize'
 import './styles.css'
 
 type PaginationProps = {
-  count: number
+  allEntries: number
 }
 
-export const Pagination: FC<PaginationProps> = memo(({ count }) => {
-  const { pageNumber, totalPages, handleNextPage, handlePrevPage } =
-    usePagination(count)
+export const Pagination: FC<PaginationProps> = memo(({ allEntries }) => {
+  const { pageNumber, totalPages, changePage } = usePagination(allEntries)
 
   return (
     <Box className="pagination">
-      <PageSize />
+      <PageSize allEntries={allEntries!} />
       <Box
         display={'flex'}
         alignItems={'center'}
@@ -22,7 +21,7 @@ export const Pagination: FC<PaginationProps> = memo(({ count }) => {
         gap={'0 10px'}
       >
         <Button
-          onClick={handlePrevPage}
+          onClick={() => changePage(pageNumber - 1)}
           isDisabled={pageNumber === 1}
           size={'sm'}
           colorScheme="blue"
@@ -30,16 +29,20 @@ export const Pagination: FC<PaginationProps> = memo(({ count }) => {
         >
           Prev
         </Button>
-        <Text
-          display={'flex'}
-          alignItems={'center'}
-          justifyContent={'center'}
-          color={'#000000'}
-        >
-          {pageNumber} of {totalPages} pages
-        </Text>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <Button
+            borderRadius={'50%'}
+            colorScheme="teal"
+            key={i}
+            size={'sm'}
+            onClick={() => changePage(i + 1)}
+            isDisabled={pageNumber === i + 1}
+          >
+            {i + 1}
+          </Button>
+        ))}
         <Button
-          onClick={handleNextPage}
+          onClick={() => changePage(pageNumber + 1)}
           isDisabled={pageNumber === totalPages}
           size={'sm'}
           colorScheme="blue"

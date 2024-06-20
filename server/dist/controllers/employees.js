@@ -9,18 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.remove = exports.update = exports.createMany = exports.create = exports.getEmployeesCount = exports.getById = exports.getEmployees = void 0;
+exports.remove = exports.update = exports.createMany = exports.create = exports.getById = exports.getEmployees = void 0;
 const repositories_1 = require("../repositories");
 const employees_service_1 = require("../services/employees-service");
 /**
- * @route GET /employees/limit?
+ * @route GET /employees
  * @desc Get employees by page size
  * @access Private
  */
 const getEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employees = yield repositories_1.employeesQueryRepo.findEmployees(+req.query.pageSize, +req.query.pageNumber, req.query.userId);
-        employees
+        const employees = yield repositories_1.employeesQueryRepo.findEmployees(req.query.userId);
+        employees.length
             ? res.status(200).json(employees)
             : res.status(404).json({ message: 'Employees not found!' });
     }
@@ -47,24 +47,6 @@ const getById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getById = getById;
-/**
- * @route GET /employees/count
- * @desc Get employees count by user ID
- * @access Private
- */
-const getEmployeesCount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const count = yield repositories_1.employeesQueryRepo.countEmployees(req.query.userId);
-        count
-            ? res.status(200).json(count)
-            : res.status(404).json({ message: 'Employees not found!' });
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({ message: 'Internal Server Error!' });
-    }
-});
-exports.getEmployeesCount = getEmployeesCount;
 /**
  * @route POST /employees/add
  * @desc Create new employee

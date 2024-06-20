@@ -5,7 +5,10 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 // login
-export const login = async (req: Request, res: Response) => {
+export const login = async (
+  req: Request,
+  res: Response<User | { message: string } | { token: string }>
+) => {
   try {
     const { email, password } = req.body
 
@@ -16,11 +19,14 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const user = await prisma.user.findFirst({ where: { email } })
-
     const isPasswordCorrect =
       user && (await bcrypt.compare(password, user.password))
-
     const secret = process.env.JWT_SECRET
+
+    const employees = await prisma.employees.findMany({
+      where: { userId: user!.id },
+    })
+    const employeesCount = employees.length
 
     if (user && isPasswordCorrect && secret) {
       res.status(200).json({
@@ -28,6 +34,7 @@ export const login = async (req: Request, res: Response) => {
         email: user.email,
         name: user.name,
         token: jwt.sign({ id: user.id }, secret, { expiresIn: '30d' }),
+        employeesCount: employeesCount,
       })
     } else {
       return res.status(400).json({ message: 'Wrong email or password!' })
@@ -64,6 +71,7 @@ export const register = async (req: Request, res: Response) => {
         email,
         name,
         password: hashedPassword,
+        employeesCount: 0,
       },
     })
 
@@ -77,12 +85,20 @@ export const register = async (req: Request, res: Response) => {
     } else {
       return res.status(400).json({ message: 'Failed to create user!' })
     }
-  } catch {
+  } catch (err) {
+    console.log(err)
     res.status(500).json({ message: 'Something went wrong!' })
   }
 }
 
 // current
-export const current = async (req: Request, res: Response) => {
-  return res.status(200).json(req.body.user)
+export const current = async (req: Request, res: Response<User>) => {
+  const employees = await prisma.employees.findMany({
+    where: { userId: req.body.user.id },
+  })
+  const employeesCount = employees.length
+
+  return res
+    .status(200)
+    .json({ ...req.body.user, employeesCount: employeesCount })
 }

@@ -28,12 +28,17 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield prisma_client_1.prisma.user.findFirst({ where: { email } });
         const isPasswordCorrect = user && (yield bcrypt_1.default.compare(password, user.password));
         const secret = process.env.JWT_SECRET;
+        const employees = yield prisma_client_1.prisma.employees.findMany({
+            where: { userId: user.id },
+        });
+        const employeesCount = employees.length;
         if (user && isPasswordCorrect && secret) {
             res.status(200).json({
                 id: user.id,
                 email: user.email,
                 name: user.name,
                 token: jsonwebtoken_1.default.sign({ id: user.id }, secret, { expiresIn: '30d' }),
+                employeesCount: employeesCount,
             });
         }
         else {
@@ -68,6 +73,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 email,
                 name,
                 password: hashedPassword,
+                employeesCount: 0,
             },
         });
         if (user && secret) {
@@ -82,14 +88,21 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(400).json({ message: 'Failed to create user!' });
         }
     }
-    catch (_b) {
+    catch (err) {
+        console.log(err);
         res.status(500).json({ message: 'Something went wrong!' });
     }
 });
 exports.register = register;
 // current
 const current = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    return res.status(200).json(req.body.user);
+    const employees = yield prisma_client_1.prisma.employees.findMany({
+        where: { userId: req.body.user.id },
+    });
+    const employeesCount = employees.length;
+    return res
+        .status(200)
+        .json(Object.assign(Object.assign({}, req.body.user), { employeesCount: employeesCount }));
 });
 exports.current = current;
 //# sourceMappingURL=auth.js.map
