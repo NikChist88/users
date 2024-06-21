@@ -2,8 +2,13 @@ import { prisma } from '../prisma/prisma-client'
 import { Employees } from '@prisma/client'
 
 export const employeesQueryRepo = {
-  async findEmployees(userId: string): Promise<Employees[]> {
-    const employees = await prisma.employees.findMany({ where: { userId } })
+  async findEmployees(userId: string, role: string): Promise<Employees[]> {
+    const employees = await prisma.employees.findMany({
+      where: {
+        userId,
+        role,
+      },
+    })
 
     return employees.map((employee) => {
       return this._mapper(employee)

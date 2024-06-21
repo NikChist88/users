@@ -17,12 +17,15 @@ export const HomePage = () => {
     <>
       <Filters />
       <EmployeesTable
-        employees={employees.slice(firstIndex, lastIndex)}
+        employees={employees && employees.slice(firstIndex, lastIndex)}
         firstIndex={firstIndex}
         lastIndex={lastIndex}
         allEntries={allEntries}
       />
-      <Pagination allEntries={allEntries} />
+      <Pagination
+        allEntries={allEntries}
+        employeesCount={employees.length}
+      />
     </>
   )
 }

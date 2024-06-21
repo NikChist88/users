@@ -12,9 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.employeesQueryRepo = void 0;
 const prisma_client_1 = require("../prisma/prisma-client");
 exports.employeesQueryRepo = {
-    findEmployees(userId) {
+    findEmployees(userId, role) {
         return __awaiter(this, void 0, void 0, function* () {
-            const employees = yield prisma_client_1.prisma.employees.findMany({ where: { userId } });
+            const employees = yield prisma_client_1.prisma.employees.findMany({
+                where: {
+                    userId,
+                    role,
+                },
+            });
             return employees.map((employee) => {
                 return this._mapper(employee);
             });

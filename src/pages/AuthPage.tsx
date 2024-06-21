@@ -1,17 +1,17 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '@/store'
-import { Auth, selectIsAuthenticated } from '@/modules/Auth'
+import { Auth, selectUser } from '@/modules/Auth'
 
 export const AuthPage = () => {
-  const isAuthenticated = useAppSelector(selectIsAuthenticated)
+  const user = useAppSelector(selectUser)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user) {
       navigate('/')
     }
-  }, [isAuthenticated])
+  }, [user, navigate])
 
   return <Auth />
 }

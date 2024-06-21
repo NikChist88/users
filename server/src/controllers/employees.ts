@@ -16,15 +16,15 @@ import { Employees } from '@prisma/client'
  * @access Private
  */
 export const getEmployees = async (
-  req: RequestQuery<{ userId: string }>,
+  req: RequestQuery<{ userId: string; role: string }>,
   res: Response<Employees[] | MessageView>
 ) => {
   try {
-    const employees = await employeesQueryRepo.findEmployees(req.query.userId)
-
-    employees.length
-      ? res.status(200).json(employees)
-      : res.status(404).json({ message: 'Employees not found!' })
+    const employees = await employeesQueryRepo.findEmployees(
+      req.query.userId,
+      req.query.role
+    )
+    res.status(200).json(employees)
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: 'Internal Server Error!' })

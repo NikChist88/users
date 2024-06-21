@@ -19,6 +19,7 @@ export const usePagination = (allEntries: number) => {
   }
 
   return {
+    pageSize,
     pageNumber,
     totalPages,
     firstIndex,

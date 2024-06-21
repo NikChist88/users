@@ -8,12 +8,14 @@ import {
   Tbody,
   Box,
   Button,
+  Text,
 } from '@chakra-ui/react'
 import { EmployeeItem } from './components'
 import { Employees } from '@prisma/index'
 import { IoMdAdd } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import { tableHeaders } from './constants/tableHeaders'
+import { BsDatabaseFillDash } from 'react-icons/bs'
 import './styles.css'
 
 type EmployeesTable = {
@@ -65,7 +67,7 @@ export const EmployeesTable: FC<EmployeesTable> = memo(
             </Tr>
           </Thead>
           <Tbody>
-            {employees?.map((employee) => (
+            {employees.map((employee) => (
               <EmployeeItem
                 key={employee.id}
                 employee={employee}
@@ -73,6 +75,25 @@ export const EmployeesTable: FC<EmployeesTable> = memo(
             ))}
           </Tbody>
         </Table>
+        {!employees.length && (
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+            padding={'30px 0'}
+          >
+            <BsDatabaseFillDash
+              color="red"
+              size={32}
+            />
+            <Text
+              pt={'10px'}
+              fontSize={'18px'}
+            >
+              No Employees
+            </Text>
+          </Box>
+        )}
         <span>
           Showing {firstIndex + 1} to {lastIndex} of {allEntries} employees
         </span>

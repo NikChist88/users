@@ -9,14 +9,14 @@ import { Spinner } from '@/ui/Spinner'
 
 export const MainLayout = () => {
   const user = useAppSelector(selectUser)
-  const { isLoading } = useGetEmployeesQuery(user!.id)
+  const { isLoading } = useGetEmployeesQuery(user && user.id)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!user) navigate('/auth')
-    dispatch(setAllEntries(user!.employeesCount))
-  }, [user])
+    dispatch(setAllEntries(user && user.employeesCount))
+  }, [user, navigate])
 
   if (isLoading) return <Spinner />
 

@@ -19,10 +19,8 @@ const employees_service_1 = require("../services/employees-service");
  */
 const getEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employees = yield repositories_1.employeesQueryRepo.findEmployees(req.query.userId);
-        employees.length
-            ? res.status(200).json(employees)
-            : res.status(404).json({ message: 'Employees not found!' });
+        const employees = yield repositories_1.employeesQueryRepo.findEmployees(req.query.userId, req.query.role);
+        res.status(200).json(employees);
     }
     catch (err) {
         console.log(err);
